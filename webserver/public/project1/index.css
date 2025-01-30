@@ -1,0 +1,12 @@
+body {
+    margin: 20vh 15vw;
+}
+
+* {
+    margin: auto;
+    text-align: center;
+}
+
+a {
+    font-size: 200%;
+}
