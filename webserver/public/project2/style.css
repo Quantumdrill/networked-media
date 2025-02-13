@@ -15,11 +15,11 @@ body {
 
 .Font2 {
     font-family: "STZhongsong";
-    font-weight: 500;
+    font-weight: 600;
 }
 
 #cover {
-    z-index: 5;
+    z-index: 1;
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -127,7 +127,17 @@ body {
     left: 2vh;
 }
 
-.sundialImages {
+.sundialImagesW {
+    display: block;
+    max-width: 11vh;
+    margin-right: 1vh;
+    margin-left: 1vh;
+    margin-top: 10vh;
+    opacity: 15%;
+}
+
+.sundialImagesB {
+    display: none;
     max-width: 11vh;
     margin-right: 1vh;
     margin-left: 1vh;
@@ -153,4 +163,23 @@ body {
     margin-top: 0.2vh;
 }
 
+#buttons {
+    position: fixed;
+    display: flex;
+    left: 17vh;
+    bottom: 2vh;
+    z-index: 2;
+    justify-content: left;
+}
 
+#lightModeBtn {
+    background-color: hsla(0,0%,100%,0);
+    border: none;
+    color: #fff;
+    opacity: 50%;
+    font-size: 2vh;
+}
+
+#lightModeBtn:hover {
+    background-color: hsla(0,0%,50%,0.5);
+}

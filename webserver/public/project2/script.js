@@ -1,4 +1,5 @@
 let prevShichen
+let darkMode = true
 
 window.onload=()=>{
     //timeLapseTester()
@@ -25,6 +26,37 @@ function initialize(){
     sundialR2.style.top = `${117.5-currTimePrecise*143.5}vh`
     sundialL1.style.top = `${-26.5-currTimePrecise*143.5}vh`
     sundialL2.style.top = `${117.5-currTimePrecise*143.5}vh`
+    lightModeBtn.addEventListener("click",()=>{
+        darkMode = !darkMode
+        console.log(darkMode)
+        if (darkMode === true){
+            timeFlex.style.color = "#d1d1d1"
+            timeNumerical.style.color = "#d1d1d1"
+            Array.from(document.getElementsByClassName("sundialImagesB")).forEach(elem=>{elem.style.display = "none"})
+            Array.from(document.getElementsByClassName("sundialImagesW")).forEach(elem=>{elem.style.display = "block"})
+            Array.from(document.getElementsByClassName("shichenWord")).forEach(elem=>{elem.style.color = "hsla(0,0%,100%,15%)"})
+            Array.from(document.getElementsByClassName("sundialNum")).forEach(elem=>{elem.style.color = "hsla(0,0%,100%,15%)"})
+            sundialNeedleR.style.color = "hsla(0,0%,100%,15%)"
+            sundialNeedleL.style.color = "hsla(0,0%,100%,15%)"
+            shichenEn.style.color = "hsla(0,0%,100%,15%)"
+            bodyID.style.backgroundColor = `hsl(${shichenIndex*360/12},70%,8%)`
+            lightModeBtn.style.color = "#fff"
+            lightModeBtn.textContent = "Light Mode"
+        } else {
+            timeFlex.style.color = "#1f1f1f"
+            timeNumerical.style.color = "#1f1f1f"
+            Array.from(document.getElementsByClassName("sundialImagesB")).forEach(elem=>{elem.style.display = "block"})
+            Array.from(document.getElementsByClassName("sundialImagesW")).forEach(elem=>{elem.style.display = "none"})
+            Array.from(document.getElementsByClassName("shichenWord")).forEach(elem=>{elem.style.color = "hsla(0,0%,0%,15%)"})
+            Array.from(document.getElementsByClassName("sundialNum")).forEach(elem=>{elem.style.color = "hsla(0,0%,0%,15%)"})
+            sundialNeedleR.style.color = "hsla(0,0%,0%,15%)"
+            sundialNeedleL.style.color = "hsla(0,0%,0%,15%)"
+            shichenEn.style.color = "hsla(0,0%,0%,15%)"
+            bodyID.style.backgroundColor= `hsl(${shichenIndex*360/12},70%,92%)`
+            lightModeBtn.style.color = "#111"
+            lightModeBtn.textContent = "Dark Mode"
+        }
+    })
 }
 function intervalSec(testTime){
     let currDate = new Date()
@@ -56,12 +88,21 @@ function intervalSec(testTime){
             },
             easing: 'easeInOutExpo'
         });
-        anime({
-            targets: "#bodyID",
-            backgroundColor: `hsl(${shichenIndex*360/12},70%,8%)`,
-            duration: 400,
-            easing: 'easeInOutExpo'
-        });
+        if (darkMode===true) {
+            anime({
+                targets: "#bodyID",
+                backgroundColor: `hsl(${shichenIndex*360/12},70%,8%)`,
+                duration: 400,
+                easing: 'easeInOutExpo'
+            });
+        } else {
+            anime({
+                targets: "#bodyID",
+                backgroundColor: `hsl(${shichenIndex*360/12},70%,92%)`,
+                duration: 400,
+                easing: 'easeInOutExpo'
+            });
+        }
         setTimeout(()=>{
             anime({
                 targets: "#shichen",
