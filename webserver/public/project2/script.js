@@ -10,7 +10,7 @@ function initialize(){
     //similar to the intervalSec func but without the updating part
     let currDate = new Date()
     let currTime = currDate.toLocaleTimeString()
-    let currTimePrecise = (Number(currTime.slice(0,2))+Number(currTime.slice(3,5))/60)/24
+    let currTimePrecise = (Number(currTime.slice(0,2))+Number(currTime.slice(3,5))/60+Number(currTime.slice(6,8))/3600)/24
     chineseTime = timeToChinese(currTime)
     let shichenIndex = (currTime.slice(0,2))>22?0:Math.floor((Number(currTime.slice(0,2))+1)/2)
     prevShichen = shichenIndex
@@ -30,7 +30,7 @@ function intervalSec(testTime){
     let currDate = new Date()
     let currTime = currDate.toLocaleTimeString()
     //let currTime = testTime
-    let currTimePrecise = (Number(currTime.slice(0,2))+Number(currTime.slice(3,5))/60)/24
+    let currTimePrecise = (Number(currTime.slice(0,2))+Number(currTime.slice(3,5))/60+Number(currTime.slice(6,8))/3600)/24
     chineseTime = timeToChinese(currTime)
     let shichenIndex = (currTime.slice(0,2))>22?0:Math.floor((Number(currTime.slice(0,2))+1)/2)
     timeNumH.textContent = chineseTime[0]
