@@ -1,0 +1,197 @@
+<html>
+<head>
+    <title>Clock</title>
+    <link href="style.css" rel="stylesheet"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <script src="anime.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body id="bodyID">
+    <div id="timeFlex" class="Font2">
+        <p id="timeNumH" class="timeNum">二十三</p>
+        <p id="timeUnitH" class="timeUnit">时</p>
+        <p id="timeNumM" class="timeNum">二十三</p>
+        <p id="timeUnitM" class="timeUnit">分</p>
+        <p id="timeNumS" class="timeNum">二十三</p>
+        <p id="timeUnitS" class="timeUnit">秒</p>
+    </div>
+    <div id="timeNumerical" class="Font2"></div>
+    <h1 id="shichenFlex" class="Font1">
+        <div id="shichen" class="shichenWord">子</div>
+        <div id="shichenShi" class="shichenWord">时</div>
+    </h1>
+    </div>
+    <p class="Font2" id="shichenEn">The Hour of the Rat</p>
+    <div id="sundialNeedleR"></div>
+    <div id="sundialNeedleL"></div>
+    <div class="sundialR" id="sundialR1">
+        <div class="sundialImages Font1">
+            <img src="images/w-goat.png" class="sundialImage">
+            <img src="images/w-monkey.png" class="sundialImage">
+            <img src="images/w-rooster.png" class="sundialImage">
+            <img src="images/w-dog.png" class="sundialImage">
+            <img src="images/w-pig.png" class="sundialImage">
+            <img src="images/w-rat.png" class="sundialImage">
+            <img src="images/w-ox.png" class="sundialImage">
+            <img src="images/w-tiger.png" class="sundialImage">
+            <img src="images/w-rabbit.png" class="sundialImage">
+            <img src="images/w-dragon.png" class="sundialImage">
+            <img src="images/w-snake.png" class="sundialImage">
+            <img src="images/w-horse.png" class="sundialImage">
+        </div>
+        <div class="sundialNum Font2">
+            <p class="sundialNumItem">14</p>
+            <p class="sundialNumItem">15</p>
+            <p class="sundialNumItem">16</p>
+            <p class="sundialNumItem">17</p>
+            <p class="sundialNumItem">18</p>
+            <p class="sundialNumItem">19</p>
+            <p class="sundialNumItem">20</p>
+            <p class="sundialNumItem">21</p>
+            <p class="sundialNumItem">22</p>
+            <p class="sundialNumItem">23</p>
+            <p class="sundialNumItem">0</p>
+            <p class="sundialNumItem">1</p>
+            <p class="sundialNumItem">2</p>
+            <p class="sundialNumItem">3</p>
+            <p class="sundialNumItem">4</p>
+            <p class="sundialNumItem">5</p>
+            <p class="sundialNumItem">6</p>
+            <p class="sundialNumItem">7</p>
+            <p class="sundialNumItem">8</p>
+            <p class="sundialNumItem">9</p>
+            <p class="sundialNumItem">10</p>
+            <p class="sundialNumItem">11</p>
+            <p class="sundialNumItem">12</p>
+            <p class="sundialNumItem">13</p>
+        </div>
+    </div>
+    <div class="sundialR" id="sundialR2">
+        <div class="sundialImages Font1">
+            <img src="images/w-goat.png" class="sundialImage">
+            <img src="images/w-monkey.png" class="sundialImage">
+            <img src="images/w-rooster.png" class="sundialImage">
+            <img src="images/w-dog.png" class="sundialImage">
+            <img src="images/w-pig.png" class="sundialImage">
+            <img src="images/w-rat.png" class="sundialImage">
+            <img src="images/w-ox.png" class="sundialImage">
+            <img src="images/w-tiger.png" class="sundialImage">
+            <img src="images/w-rabbit.png" class="sundialImage">
+            <img src="images/w-dragon.png" class="sundialImage">
+            <img src="images/w-snake.png" class="sundialImage">
+            <img src="images/w-horse.png" class="sundialImage">
+        </div>
+        <div class="sundialNum Font2">
+            <p class="sundialNumItem">14</p>
+            <p class="sundialNumItem">15</p>
+            <p class="sundialNumItem">16</p>
+            <p class="sundialNumItem">17</p>
+            <p class="sundialNumItem">18</p>
+            <p class="sundialNumItem">19</p>
+            <p class="sundialNumItem">20</p>
+            <p class="sundialNumItem">21</p>
+            <p class="sundialNumItem">22</p>
+            <p class="sundialNumItem">23</p>
+            <p class="sundialNumItem">0</p>
+            <p class="sundialNumItem">1</p>
+            <p class="sundialNumItem">2</p>
+            <p class="sundialNumItem">3</p>
+            <p class="sundialNumItem">4</p>
+            <p class="sundialNumItem">5</p>
+            <p class="sundialNumItem">6</p>
+            <p class="sundialNumItem">7</p>
+            <p class="sundialNumItem">8</p>
+            <p class="sundialNumItem">9</p>
+            <p class="sundialNumItem">10</p>
+            <p class="sundialNumItem">11</p>
+            <p class="sundialNumItem">12</p>
+            <p class="sundialNumItem">13</p>
+        </div>
+    </div>
+    <div class="sundialL" id="sundialL1">
+        <div class="sundialNum Font2">
+            <p class="sundialNumItem">14</p>
+            <p class="sundialNumItem">15</p>
+            <p class="sundialNumItem">16</p>
+            <p class="sundialNumItem">17</p>
+            <p class="sundialNumItem">18</p>
+            <p class="sundialNumItem">19</p>
+            <p class="sundialNumItem">20</p>
+            <p class="sundialNumItem">21</p>
+            <p class="sundialNumItem">22</p>
+            <p class="sundialNumItem">23</p>
+            <p class="sundialNumItem">0</p>
+            <p class="sundialNumItem">1</p>
+            <p class="sundialNumItem">2</p>
+            <p class="sundialNumItem">3</p>
+            <p class="sundialNumItem">4</p>
+            <p class="sundialNumItem">5</p>
+            <p class="sundialNumItem">6</p>
+            <p class="sundialNumItem">7</p>
+            <p class="sundialNumItem">8</p>
+            <p class="sundialNumItem">9</p>
+            <p class="sundialNumItem">10</p>
+            <p class="sundialNumItem">11</p>
+            <p class="sundialNumItem">12</p>
+            <p class="sundialNumItem">13</p>
+        </div>
+        <div class="sundialImages Font1">
+            <img src="images/w-goat.png" class="sundialImage">
+            <img src="images/w-monkey.png" class="sundialImage">
+            <img src="images/w-rooster.png" class="sundialImage">
+            <img src="images/w-dog.png" class="sundialImage">
+            <img src="images/w-pig.png" class="sundialImage">
+            <img src="images/w-rat.png" class="sundialImage">
+            <img src="images/w-ox.png" class="sundialImage">
+            <img src="images/w-tiger.png" class="sundialImage">
+            <img src="images/w-rabbit.png" class="sundialImage">
+            <img src="images/w-dragon.png" class="sundialImage">
+            <img src="images/w-snake.png" class="sundialImage">
+            <img src="images/w-horse.png" class="sundialImage">
+        </div>
+    </div>
+    <div class="sundialL" id="sundialL2">   
+        <div class="sundialNum Font2">
+            <p class="sundialNumItem">14</p>
+            <p class="sundialNumItem">15</p>
+            <p class="sundialNumItem">16</p>
+            <p class="sundialNumItem">17</p>
+            <p class="sundialNumItem">18</p>
+            <p class="sundialNumItem">19</p>
+            <p class="sundialNumItem">20</p>
+            <p class="sundialNumItem">21</p>
+            <p class="sundialNumItem">22</p>
+            <p class="sundialNumItem">23</p>
+            <p class="sundialNumItem">0</p>
+            <p class="sundialNumItem">1</p>
+            <p class="sundialNumItem">2</p>
+            <p class="sundialNumItem">3</p>
+            <p class="sundialNumItem">4</p>
+            <p class="sundialNumItem">5</p>
+            <p class="sundialNumItem">6</p>
+            <p class="sundialNumItem">7</p>
+            <p class="sundialNumItem">8</p>
+            <p class="sundialNumItem">9</p>
+            <p class="sundialNumItem">10</p>
+            <p class="sundialNumItem">11</p>
+            <p class="sundialNumItem">12</p>
+            <p class="sundialNumItem">13</p>
+        </div>
+        <div class="sundialImages Font1">
+            <img src="images/w-goat.png" class="sundialImage">
+            <img src="images/w-monkey.png" class="sundialImage">
+            <img src="images/w-rooster.png" class="sundialImage">
+            <img src="images/w-dog.png" class="sundialImage">
+            <img src="images/w-pig.png" class="sundialImage">
+            <img src="images/w-rat.png" class="sundialImage">
+            <img src="images/w-ox.png" class="sundialImage">
+            <img src="images/w-tiger.png" class="sundialImage">
+            <img src="images/w-rabbit.png" class="sundialImage">
+            <img src="images/w-dragon.png" class="sundialImage">
+            <img src="images/w-snake.png" class="sundialImage">
+            <img src="images/w-horse.png" class="sundialImage">
+        </div>
+    </div>
+    <div id="cover"></div>
+</body>
+</html>
