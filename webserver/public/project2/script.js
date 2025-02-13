@@ -36,8 +36,8 @@ function initialize(){
             Array.from(document.getElementsByClassName("sundialImagesW")).forEach(elem=>{elem.style.display = "block"})
             Array.from(document.getElementsByClassName("shichenWord")).forEach(elem=>{elem.style.color = "hsla(0,0%,100%,15%)"})
             Array.from(document.getElementsByClassName("sundialNum")).forEach(elem=>{elem.style.color = "hsla(0,0%,100%,15%)"})
-            sundialNeedleR.style.color = "hsla(0,0%,100%,15%)"
-            sundialNeedleL.style.color = "hsla(0,0%,100%,15%)"
+            sundialNeedleR.style.backgroundColorcolor = "hsla(0,0%,100%,15%)"
+            sundialNeedleL.style.backgroundColorcolor = "hsla(0,0%,100%,15%)"
             shichenEn.style.color = "hsla(0,0%,100%,15%)"
             bodyID.style.backgroundColor = `hsl(${shichenIndex*360/12},70%,8%)`
             lightModeBtn.style.color = "#fff"
@@ -49,8 +49,8 @@ function initialize(){
             Array.from(document.getElementsByClassName("sundialImagesW")).forEach(elem=>{elem.style.display = "none"})
             Array.from(document.getElementsByClassName("shichenWord")).forEach(elem=>{elem.style.color = "hsla(0,0%,0%,15%)"})
             Array.from(document.getElementsByClassName("sundialNum")).forEach(elem=>{elem.style.color = "hsla(0,0%,0%,15%)"})
-            sundialNeedleR.style.color = "hsla(0,0%,0%,15%)"
-            sundialNeedleL.style.color = "hsla(0,0%,0%,15%)"
+            sundialNeedleR.style.backgroundColorcolor = "hsla(0,0%,0%,15%)"
+            sundialNeedleL.style.backgroundColorcolor = "hsla(0,0%,0%,15%)"
             shichenEn.style.color = "hsla(0,0%,0%,15%)"
             bodyID.style.backgroundColor= `hsl(${shichenIndex*360/12},70%,92%)`
             lightModeBtn.style.color = "#111"
