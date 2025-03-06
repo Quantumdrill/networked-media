@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>class11</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <nav>
+        <a href="/">to home</a>
+        <a href="/form">to form</a> 
+        <!-- in the href above enter the route instead of file -->
+    </nav>
+    <div class="message_container">
+        <%= messages_property[0].color %> 
+        <!-- the content here is only fetched through the second parameter of the res.render in server.js, in this case the messages_property inside of "data" -->
+    
+    </div>
+</body>
+</html>
