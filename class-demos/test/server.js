@@ -5,15 +5,19 @@ app.use(express.static("static"))
 let data=[]
 app.set("view engine", "ejs")
 
-app.get("/",(req,res)=>{
-    res.render("index.ejs")
-})
+// app.get("/",(req,res)=>{
+//     res.render("index.ejs")
+// })
 
-app.post("/submit",(req,res)=>{
-    //res.send(req.query.username)
-    data.push(req.query)
-    //console.log(data)
-    res.render("submit.ejs", {all:data})
+// app.post("/submit",(req,res)=>{
+//     //res.send(req.query.username)
+//     data.push(req.query)
+//     //console.log(data)
+//     res.render("submit.ejs", {all:data})
+// })
+
+app.get("/",(req,res)=>{
+    res.render("test.ejs")
 })
 
 app.listen(5555,()=>{
