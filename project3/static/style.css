@@ -17,6 +17,7 @@ body {
     font-weight: 700;
     font-style: normal;
     color: rgb(29, 54, 35);
+    text-decoration: none;
 }
 
 .generalA2:hover {
@@ -151,6 +152,8 @@ body {
 
 #wpSection {
     position: fixed;
+    display: block;
+    justify-content: center;
     right: -40vw;
     top: 0;
     width: 40vw;
@@ -174,7 +177,7 @@ body {
 }
 
 #wpForm {
-    display: flex;
+    display: none;
     padding: 3vw;
     box-sizing: border-box;
     flex-direction: column;
@@ -199,7 +202,7 @@ body {
 
 #wpTitle,#wpCity,#wpName,#wpContent,#wpSubmit,#wpFormFileLabel {
     height: 2vw;
-    background-color: rgb(209, 218, 211);
+    background-color: rgb(255, 255, 255);
     border: none;
     color: black;
     border-radius: 0.5vh;
@@ -245,7 +248,7 @@ body {
     height: 3vw;
     cursor: pointer;
     background-color: rgb(70, 94, 74);
-    color: rgb(197, 214, 201);
+    color: rgb(255, 255, 255);
 }
 
 input[type=submit] {
@@ -259,3 +262,45 @@ input[type=submit] {
     background-color: rgb(105, 130, 111);
 }
 
+#wpSubmitted {
+    position: absolute;
+    top: 45vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#wpSubmittedText {
+    font-size: 3vw;
+}
+
+#wpSubmittedJump {
+    font-size: 1.5vw;
+    margin-top: 1vw;
+}
+
+/* About this website --------------------------------------------------------------------- */
+
+#awBG {
+    position: fixed;
+    width: 220vh;
+    right: -60vw;
+    bottom: -90vh;
+    opacity: 10%;
+}
+
+#awH1 {
+    position: fixed;
+    left: 10vw;
+    bottom: 40vh;
+    width: 30vw;
+}
+
+#awP {
+    position: fixed;
+    left: 10vw;
+    bottom: 10vh;
+    width: 30vw;
+    height: 28vh;
+    background-color: aqua;
+}

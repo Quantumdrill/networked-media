@@ -8,6 +8,10 @@ app.get("/",(req,res)=>{
     res.render("home.ejs")
 })
 
+app.get("/about-this-website",(req,res)=>{
+    res.render("aboutWeb.ejs")
+})
+
 app.get("/contact-and-links",(req,res)=>{
     res.render("contact.ejs")
 })

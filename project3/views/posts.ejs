@@ -25,7 +25,7 @@
     <div id="wpBackCover"></div>
     <section id="wpSection">
         <img src="cross.svg" id="wpCrossImg">
-        <h2 id="wpH2" class="generalH2">Write about your pigeon story!</h2>
+        <h2 id="wpH2" class="generalH2">Write about your own pigeon story!</h2>
         <form method="POST" action="submit" enctype="multipart/form-data" id="wpForm">
             <input type="text" name="wpTitle" id="wpTitle" placeholder=" Title">
             <div id="wpFormCityName">
@@ -43,11 +43,8 @@
             <input type="submit" name="wpSubmit" id="wpSubmit" value="Post">
         </form> 
         <div id="wpSubmitted">
-            <h2>Submitted!</h2>
-            <div id="wpSubmittedOptions">
-                <a href="">View</a>
-            <p href="">Back</p>
-            </div>
+            <h2 class="generalH2" id="wpSubmittedText">Submitted!</h2>
+            <a href="" id="wpSubmittedJump" class="generalA2">View</a>
         </div>
     </section>
 </body>

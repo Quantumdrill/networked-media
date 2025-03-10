@@ -1,5 +1,9 @@
 window.onload=()=>{
     ppWritePost.addEventListener("click",()=>{
+        wpForm.style.display = "flex"
+        wpH2.style.display = "block"
+        wpSection.style.display = "block"
+        wpSubmitted.style.display = "none"
         anime({
             targets: "#wpSection",
             right: "0vw",
@@ -47,5 +51,11 @@ window.onload=()=>{
             duration: 300,
             easing: 'easeInOutExpo',
         });
+    })
+    wpSubmit.addEventListener("click",()=>{
+        wpH2.style.display = "none"
+        wpForm.style.display = "none"
+        wpSection.style.display = "flex"
+        wpSubmitted.style.display = "flex"
     })
 }
