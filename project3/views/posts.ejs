@@ -1,39 +1,54 @@
 <html>
 <head>
     <title>Pigeon Posts</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barriecito&family=Sahitya:wght@400;700&display=swap" rel="stylesheet">
+    <script src="post.js"></script>
+    <script src="anime.min.js"></script>
 </head>
 <body>
     <div id="ppImgs">
         <img id="ppBG">
     </div>
-    <header>
+    <header id="ppHeader">
         <h1 class="generalH1" id="ppH1">Pigeon Posts</h1>
-        <menu>
-            <p id="ppFilter">Filter</p>
-            <a id="ppWritePost">Write a post</a>
+        <menu id="ppHeaderMenu" >
+            <p id="ppFilter" class="generalA2 ppHeaderMenuItems">Filter</p>
+            <p id="ppWritePost" class="generalA2 ppHeaderMenuItems">Write a post</p>
         </menu>
     </header>
     <main id="ppMain">
 
     </main>
+    <div id="wpBackCover"></div>
     <section id="wpSection">
-    <h2>Write about your pigeon story!</h2>
-    <form method="POST" action="submit" enctype="multipart/form-data">
-        <input type="text" name="wpTitle" id="wpTitle" placeholder="Title">
-        <label for="wpCity">Select your city</label>
-        <input list="wpCitiesList" name="wpCity" id="wpCity">
-        <datalist id="wpCitiesList">
-            <option value="New York">
-        </datalist>
-        <label for="wpFile">Upload pictures</label>
-        <input type="file" name="wpFile" id="wpFile" multiple>
-        <textarea name="wpContent" id="wpContent" placeholder="Write your content here"></textarea>
-        <input type="submit" name="wpSubmit" id="wpSubmit">
-    </form> 
-    <div id="wpSubmitted">
-        <h2>Submitted!</h2>
-        <a href="">View</a>
-    </div>
-</section>
+        <img src="cross.svg" id="wpCrossImg">
+        <h2 id="wpH2" class="generalH2">Write about your pigeon story!</h2>
+        <form method="POST" action="submit" enctype="multipart/form-data" id="wpForm">
+            <input type="text" name="wpTitle" id="wpTitle" placeholder=" Title">
+            <div id="wpFormCityName">
+                <input list="wpCitiesList" name="wpCity" id="wpCity" placeholder=" Select your city">
+                <datalist id="wpCitiesList">
+                    <option value="New York">
+                </datalist>
+                <input type="text" name="wpName" id="wpName" placeholder=" Your name">
+            </div>
+            <textarea name="wpContent" id="wpContent" placeholder=" Write your content here" maxlength="5000"></textarea>
+            <div id="wpFormFileLabel">
+                <label for="wpFile" class="generalP"> Upload pictures</label>
+                <input type="file" name="wpFile" id="wpFile" multiple>
+            </div>
+            <input type="submit" name="wpSubmit" id="wpSubmit" value="Post">
+        </form> 
+        <div id="wpSubmitted">
+            <h2>Submitted!</h2>
+            <div id="wpSubmittedOptions">
+                <a href="">View</a>
+            <p href="">Back</p>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

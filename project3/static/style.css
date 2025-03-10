@@ -1,0 +1,261 @@
+* {
+    margin: 0;
+}
+
+body {
+    background-color: #e5e5e5;
+}
+
+.generalP {
+    font-family: "Sahitya", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.generalA2 {
+    font-family: "Sahitya", serif;
+    font-weight: 700;
+    font-style: normal;
+    color: rgb(29, 54, 35);
+}
+
+.generalA2:hover {
+    color: rgb(0, 109, 24);
+    cursor: pointer;
+}
+
+.generalH1, .generalH2 {
+    font-family: "Barriecito", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(29, 54, 35)
+}
+
+.generalA {
+    font-family: "Barriecito", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    color: rgb(29, 54, 35)
+}
+
+.generalA:hover {
+    color: rgb(0, 109, 24)
+}
+
+/* Home --------------------------------------------------------------------- */
+
+#homePigeon {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+
+#homeBG {
+    position: fixed;
+    right: -40vh;
+    bottom: -7vh;
+    height: 100vh;
+    opacity: 10%;
+}
+
+#homeTitle {
+    position: fixed;
+    font-size: 18vh;
+    bottom: 14vh;
+    left: 15vh;
+    text-wrap: nowrap;
+}
+
+#homeLeftMenu {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    font-size: 3vh;
+    line-height: 150%;
+    left: 15vh;
+    bottom: 45vh;
+}
+
+#homeGlobeImg {
+    width: 10vh;
+    position: fixed;
+    right: 96vh;
+    bottom: 68vh;
+    opacity: 50%;
+}
+
+#homeWorld {
+    position: fixed;
+    right: 89vh;
+    bottom: 64vh;
+    font-size: 3vh;
+}
+
+#homeWorld:hover + #homeGlobeImg {
+    opacity: 30%;
+}
+
+#homePosts {
+    position: fixed;
+    right: 40vh;
+    bottom: 53vh;
+    font-size: 5vh;
+}
+
+/* Pigeon Posts --------------------------------------------------------------------- */
+
+#ppImgs {
+    position: static;
+    height: 18vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.038);
+}
+
+#ppHeader {
+    position: sticky;
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10vw;
+    box-sizing: border-box;
+}
+
+#ppH1 {
+    font-size: 3.4vh;
+}
+
+#ppHeaderMenu {
+    display: flex;
+    align-items: center;
+    font-size: 3.4vh;
+}
+
+.ppHeaderMenuItems {
+    margin: 0 2.5vw;
+}
+
+#wpBackCover {
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background-color: rgba(0, 0, 0);
+    opacity: 0%;
+}
+
+#wpSection {
+    position: fixed;
+    right: -40vw;
+    top: 0;
+    width: 40vw;
+    height: 100vh;
+    z-index: 2;
+    background-color: #e5e5e5;
+}
+
+#wpCrossImg {
+    position: absolute;
+    left: 2.5vw;
+    top: 2vw;
+    width: 2vw;
+    cursor: pointer;
+}
+
+#wpH2 {
+    margin-top: 15vh;
+    text-align: center;
+    font-size: 2vw;
+}
+
+#wpForm {
+    display: flex;
+    padding: 3vw;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+#wpTitle {
+    width: 34vw;
+}
+
+#wpFormCityName {
+    display: flex;
+    justify-content: space-between;
+}
+
+#wpCity {
+    width: 16.75vw;
+}
+
+#wpName {
+    width: 16.75vw;
+}
+
+#wpTitle,#wpCity,#wpName,#wpContent,#wpSubmit,#wpFormFileLabel {
+    height: 2vw;
+    background-color: rgb(209, 218, 211);
+    border: none;
+    color: black;
+    border-radius: 0.5vh;
+    margin-bottom: 0.5vw;
+    outline: none;
+}
+
+#wpTitle::placeholder,#wpCity::placeholder,#wpName::placeholder,#wpContent::placeholder {
+    color: rgba(0, 0, 0, 0.55);
+    font-family: "Sahitya", serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 0.2vh;
+    font-size: 0.9vw;
+    text-align: left;
+}
+
+#wpContent {
+    resize: none;
+    height: 15vw;
+}
+
+#wpContent::placeholder {
+    line-height: 1.8vw;
+}
+
+#wpFormFileLabel {
+    display: flex;
+    padding-top: 0.5vw;
+    padding-left: 0.5vw;
+    font-size: 0.9vw;
+}
+
+#wpFile {
+    max-width: 18vw;
+    margin-left: 0.5vw;
+}
+
+#wpSubmit {
+    margin-top: 0.5vw; 
+    margin-left: 24vw;
+    width: 10vw;
+    height: 3vw;
+    cursor: pointer;
+    background-color: rgb(70, 94, 74);
+    color: rgb(197, 214, 201);
+}
+
+input[type=submit] {
+    font-family: "Sahitya", serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.2vw;
+}
+
+#wpSubmit:hover {
+    background-color: rgb(105, 130, 111);
+}
+

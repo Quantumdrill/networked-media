@@ -2,21 +2,26 @@
 <head>
     <title>Pigeon Home</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barriecito&family=Sahitya:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    <h1>The Pigeon Website</h1>
+    <h1 class="generalH1" id="homeTitle">The Pigeon Website</h1>
     <div id="homePigeon">
-        <img id="homeBG">
+        <img src="pigeon.svg" id="homeBG">
         <div id="homeGlobeMenu">
-            <img id="homeGlobeImg" src="">
-            <a href="" id="homeWorld">Pigeons in the world</a>
+            <a href="" id="homeWorld" class="generalA">Pigeons in the world</a>
+            <img id="homeGlobeImg" src="globe.png">
+            
         </div>
-        <a href="/posts" id="homePosts">Pigeon Posts</a>
+        <a href="/pigeon-posts" id="homePosts" class="generalA">Pigeon Posts</a>
     </div>
     <div id="homeLeftMenu">
-        <a href="aboutWeb.ejs" id="homeAboutWebsite">About this website</a>
-        <a href="" id="homeAboutPigeons">About pigeons</a>
-        <a href="/contact" id="homeContact">Contact & Links</a>
+        <a href="/about-this-website" id="homeAboutWebsite" class="generalA">About this website</a>
+        <a href="/about-pigeons" id="homeAboutPigeons" class="generalA">About pigeons</a>
+        <a href="/contact-and-links" id="homeContact" class="generalA">Contact & Links</a>
     </div>
     
 </body>

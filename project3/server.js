@@ -8,16 +8,16 @@ app.get("/",(req,res)=>{
     res.render("home.ejs")
 })
 
-app.get("/contact",(req,res)=>{
+app.get("/contact-and-links",(req,res)=>{
     res.render("contact.ejs")
 })
 
-app.get("/posts",(req,res)=>{
+app.get("/pigeon-posts",(req,res)=>{
     res.render("posts.ejs")
 })
 
 app.post("/submit",(req,res)=>{
-    res.redirect("/posts")
+    res.redirect("/pigeon-posts")
 })
 
 app.listen(8080,()=>{
