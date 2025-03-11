@@ -33,9 +33,11 @@ app.get("/pigeons-in-the-world",(req,res)=>{
 
 app.get("/pigeon-stories",(req,res)=>{
     if (req.query.city) {
-        DataArray = DataArray.filter(post=>post.city===req.query.city.replace("%20", " "))
+        let filteredDataArray = DataArray.filter(post=>post.city===req.query.city.replace("%20", " "))
+    } else {
+        let filteredDataArray = DataArray
     }
-    res.render("posts.ejs", {allPost:DataArray})
+    res.render("posts.ejs", {allPost:filteredDataArray})
 })
 
 app.post("/submit", uploadProcessor.array("wpFile"), (req,res)=>{
