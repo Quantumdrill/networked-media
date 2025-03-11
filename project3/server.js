@@ -74,7 +74,7 @@ app.get("/edit-post", (req,res)=>{
 })
 
 app.get("/edit-post-submit", (req,res)=>{
-    let currentIndex = Number(req.query.index)
+    let currentIndex = Number(req.query.removeIndex)
     DataArray = DataArray.filter(post => post.index !== currentIndex)
     res.redirect("/edit-post")
 })
