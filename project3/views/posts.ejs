@@ -7,45 +7,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Barriecito&family=Sahitya:wght@400;700&display=swap" rel="stylesheet">
     <script src="post.js"></script>
     <script src="anime.min.js"></script>
+    
 </head>
 <body>
     <div id="ppImgs">
-        <img id="ppBG">
+        <img class="ppBG">
     </div>
     <header id="ppHeader">
-        <h1 class="generalH1" id="ppH1">Pigeon Posts</h1>
+        <h1 class="generalH1" id="ppH1">Pigeon Stories</h1>
         <menu id="ppHeaderMenu" >
-            <p id="ppFilter" class="generalA2 ppHeaderMenuItems">Filter</p>
+            <a id="ppFilter" class="generalA2 ppHeaderMenuItems" href="/pigeons-in-the-world">Choose City</a>
             <p id="ppWritePost" class="generalA2 ppHeaderMenuItems">Write a post</p>
         </menu>
     </header>
     <main id="ppMain">
-
+        <% allPost.forEach((post)=>{ %>
+            <div class="ppMainPost">
+                <% if (post.imgUrl.length>1&&post.imgUrl[0]!=="noImage"){ %>
+                    <img src="<%="upload/"+post.imgUrl[0]%>" class="ppMainPostContent">
+                <%} else {%>
+                    <p class="generalP ppMainPostContentText">
+                        <%= post.title %>
+                    </p>
+                <%}%>
+                <a class="ppMainPostCover" href="<%="/view-post?index="+post.index%>"></a>
+            </div>
+        <%}) %>
     </main>
     <div id="wpBackCover"></div>
     <section id="wpSection">
         <img src="cross.svg" id="wpCrossImg">
         <h2 id="wpH2" class="generalH2">Write about your own pigeon story!</h2>
         <form method="POST" action="submit" enctype="multipart/form-data" id="wpForm">
-            <input type="text" name="wpTitle" id="wpTitle" placeholder=" Title">
+            <input type="text" name="wpTitle" id="wpTitle" placeholder=" Title" required>
             <div id="wpFormCityName">
-                <input list="wpCitiesList" name="wpCity" id="wpCity" placeholder=" Select your city">
+                <input list="wpCitiesList" name="wpCity" id="wpCity" placeholder=" Select your city" required>
                 <datalist id="wpCitiesList">
                     <option value="New York">
+                    <option value="Munich">
                 </datalist>
                 <input type="text" name="wpName" id="wpName" placeholder=" Your name">
             </div>
-            <textarea name="wpContent" id="wpContent" placeholder=" Write your content here" maxlength="5000"></textarea>
+            <textarea name="wpContent" id="wpContent" placeholder=" Write your content here" maxlength="5000" required></textarea>
             <div id="wpFormFileLabel">
-                <label for="wpFile" class="generalP"> Upload pictures</label>
+                <label for="wpFile" class="generalP">Upload pictures</label>
                 <input type="file" name="wpFile" id="wpFile" multiple>
             </div>
             <input type="submit" name="wpSubmit" id="wpSubmit" value="Post">
         </form> 
-        <div id="wpSubmitted">
-            <h2 class="generalH2" id="wpSubmittedText">Submitted!</h2>
-            <a href="" id="wpSubmittedJump" class="generalA2">View</a>
-        </div>
     </section>
 </body>
 </html>

@@ -12,6 +12,13 @@ body {
     font-style: normal;
 }
 
+.generalH3 {
+    font-family: "Sahitya", serif;
+    font-weight: 700;
+    font-style: normal;
+    color: rgb(29, 54, 35);
+}
+
 .generalA2 {
     font-family: "Sahitya", serif;
     font-weight: 700;
@@ -21,6 +28,19 @@ body {
 }
 
 .generalA2:hover {
+    color: rgb(0, 109, 24);
+    cursor: pointer;
+}
+
+.generalA3 {
+    font-family: "Sahitya", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(29, 54, 35);
+    text-decoration: none;
+}
+
+.generalA3:hover {
     color: rgb(0, 109, 24);
     cursor: pointer;
 }
@@ -58,6 +78,15 @@ body {
     bottom: -7vh;
     height: 100vh;
     opacity: 10%;
+}
+
+#homeBG2 {
+    position: fixed;
+    left: 70vh;
+    bottom: 28.5vh;
+    height: 15vh;
+    opacity: 40%;
+    transform: scaleX(-1);
 }
 
 #homeTitle {
@@ -100,8 +129,8 @@ body {
 
 #homePosts {
     position: fixed;
-    right: 40vh;
-    bottom: 53vh;
+    right: 36vh;
+    bottom: 56vh;
     font-size: 5vh;
 }
 
@@ -111,7 +140,14 @@ body {
     position: static;
     height: 18vh;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.038);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+.ppBG {
+    opacity: 10%;
+    padding-right: 1vh;
 }
 
 #ppHeader {
@@ -126,7 +162,7 @@ body {
 }
 
 #ppH1 {
-    font-size: 3.4vh;
+    font-size: 3.6vh;
 }
 
 #ppHeaderMenu {
@@ -137,6 +173,53 @@ body {
 
 .ppHeaderMenuItems {
     margin: 0 2.5vw;
+}
+
+#ppMain {
+    display: flex;
+    flex-wrap: wrap;
+    width: 84vw;
+    margin: 0vh 8vw;
+}
+
+.ppMainPost {
+    position: relative;
+    margin: 0.5vw;
+    margin-top: 0;
+    box-sizing: border-box;
+    width: 20vw;
+    height: 20vw;
+    background-color: rgb(255, 255, 255);
+    text-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ppMainPostContent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ppMainPostContent {
+    position: absolute;
+    font-size: 1.4vw;
+    text-align: center;
+}
+
+.ppMainPostCover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: black;
+    cursor: pointer;
+}
+
+.ppMainPostCover:hover {
+    opacity: 15%;
 }
 
 #wpBackCover {
@@ -160,6 +243,8 @@ body {
     height: 100vh;
     z-index: 2;
     background-color: #e5e5e5;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 #wpCrossImg {
@@ -262,29 +347,12 @@ input[type=submit] {
     background-color: rgb(105, 130, 111);
 }
 
-#wpSubmitted {
-    position: absolute;
-    top: 45vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#wpSubmittedText {
-    font-size: 3vw;
-}
-
-#wpSubmittedJump {
-    font-size: 1.5vw;
-    margin-top: 1vw;
-}
-
 /* About this website --------------------------------------------------------------------- */
 
 #awBG {
     position: fixed;
     width: 220vh;
-    right: -60vw;
+    right: -115vh;
     bottom: -90vh;
     opacity: 10%;
 }
@@ -292,15 +360,284 @@ input[type=submit] {
 #awH1 {
     position: fixed;
     left: 10vw;
-    bottom: 40vh;
+    bottom: 45vh;
     width: 30vw;
 }
 
 #awP {
     position: fixed;
     left: 10vw;
-    bottom: 10vh;
+    bottom: 15vh;
     width: 30vw;
     height: 28vh;
-    background-color: aqua;
+    font-size: 2vh;
 }
+
+/* View Post --------------------------------------------------------------------- */
+
+#pvText {
+    position: fixed;
+    height: 100vh;
+    width: 50vw;
+    padding-left: 15vw;
+    padding-right: 5vw;
+    padding-top: 20vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+#pvH2 {
+    font-size: 1.5vw;
+    align-self: center;
+    margin-bottom: 1vw;
+    text-align: center;
+}
+
+.pvInfo {
+    font-size: 1vw;
+    align-self: flex-end;
+    color:#262626;
+}
+
+#pvContent {
+    margin-top: 1.5vw;
+    max-width: 30vw;
+    overflow-wrap:normal ;
+}
+
+#pvGallery {
+    position: absolute;
+    right: 0;
+    height: 100vh;
+    width: 50vw;
+    padding-left: 5vw;
+    padding-right: 15vw;
+    padding-top: 10vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.pvPics {
+    padding: 2vh 0;
+}
+
+/* Contact & Links --------------------------------------------------------------------- */
+
+#contactH1 {
+    font-size: 5vh;
+    padding-bottom: 5vh;
+}
+
+#contactMyInfo {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    right: 55vw;
+    top: 18vh;
+}
+
+#contactMoreRsc {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    left: 55vw;
+    top: 52vh;
+}
+
+.contactH2 {
+    font-size: 3.5vh;
+    margin-bottom: 1.5vh;
+}
+
+.contactA {
+    font-size: 2.5vh;
+}
+
+#contactBG1 {
+    rotate: 90deg;
+    width: 75vh;
+    position: fixed;
+    bottom: -20vh;
+    left: -11.4vh;
+    opacity: 10%;
+}
+
+#contactBG2 {
+    rotate: -90deg;
+    width: 75vh;
+    position: fixed;
+    top: -20vh;
+    right: -11.4vh;
+    opacity: 10%;
+}
+
+/* About Pigeons --------------------------------------------------------------------- */
+
+#apIntroSection {
+    position: fixed;
+    height: 100vh;
+    width: 40vw;
+    padding-left: 7vw;
+    padding-right: 5vw;
+    padding-top: 40vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+#apH1 {
+    font-size: 3.2vh;
+}
+
+#apH2 {
+    font-size: 2.7vh;
+    margin-bottom: 2vh;
+}
+
+#apIntro {
+    margin-top: 3vh;
+    max-width: 40vw;
+    overflow-wrap:normal;
+    font-size: 2vh;
+}
+
+#apIntroSource {
+    margin-top: 3vh;
+    max-width: 40vw;
+    overflow-wrap:normal;
+    color: rgb(65, 65, 65);
+    font-size: 1.5vh;
+}
+
+#apSpeciesSection {
+    position: absolute;
+    right: 0;
+    height: 100vh;
+    width: 60vw;
+    padding-left: 3vw;
+    padding-right: 7vw;
+    padding-top: 5vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.apSpeciesCard {
+    padding: 3vh;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+}
+
+.apSpeciesTitle {
+    font-size: 2.5vh;
+    margin-bottom: 1vh;
+}
+
+.apSpeciesContent {
+    font-size: 2vh;
+}
+
+.apSpeciesImg {
+    width: 25vh;
+    height: 25vh;
+    object-fit: cover;
+    margin-left: 3vh;
+}
+
+#apBG {
+    position: fixed;
+    width: 60vh;
+    opacity: 10%;
+    left: -10vh;
+    top: -24vh;
+    z-index: -1;
+}
+
+/* Pigeons in the world --------------------------------------------------------------------- */
+
+#mapH1 {
+    height: 15vh;
+    padding-top: 6vh;
+    padding-left: 15vh;
+    font-size: 4vh;
+    box-sizing: border-box;
+}
+
+#mapContainer {
+    position: absolute;
+    top: 15vh;
+    width: 100vw;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#map {
+    position: absolute;
+    cursor: grab;
+    transform-origin: center center;
+    user-select: none;
+}
+
+#mapImg{
+    opacity: 20%;
+}
+
+.mapIconContainer{
+    width: 3vh;
+    height: 3vh;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mapIcon{
+    height: 3vh;
+    width: 3vh;
+    border-radius: 2vh;
+    position: absolute;
+    background-color: rgb(29, 54, 35);
+}
+
+.mapIcon:hover {
+    background-color: rgb(0, 109, 24);
+    cursor: pointer;
+}
+
+.mapIcon:hover + .mapIconText {
+    color: rgb(0, 109, 24);
+}
+
+.mapIconLocator {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.mapIconText {
+    position: absolute;
+    text-wrap: none;
+    min-width: 10vh;
+    color: rgb(29, 54, 35);
+    bottom: 3.5vh;
+    text-align: center;
+    pointer-events: none;
+}
+
+#mapBG {
+    position: fixed;
+    width: 120vh;
+    top: -69vh;
+    right: -20vh;
+    opacity: 10%;
+}
+

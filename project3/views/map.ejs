@@ -2,16 +2,29 @@
 <head>
     <title>Pigeons in the world</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mapCoord.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barriecito&family=Sahitya:wght@400;700&display=swap" rel="stylesheet">
+    <script src="map.js"></script>
 </head>
 <body>
-    <h1 class="generalH1">Pigeons in the world</h1>
-    <img id="mapBG">
-    <section id="map">
-        <img id="mapImg">
-
+    <h1 class="generalH1" id="mapH1">Pigeons in the world</h1>
+    <img id="mapBG" src="pigeon.svg">
+    <section id="mapContainer">
+        <div id="map" draggable="false">
+            <img id="mapImg" src="world.svg">
+            <div class="mapIconLocator" id="mapIconLocatorNewYork"></div>
+            <div class="mapIconLocator" id="mapIconLocatorMunich"></div>
+        </div> 
+        <div class="mapIconContainer" id="mapIconContainerNewYork">
+            <a class="mapIcon" href="/pigeon-stories?city=New York"></a>
+            <p class="generalH2 mapIconText">New York</p>
+        </div>
+        <div class="mapIconContainer" id="mapIconContainerMunich">
+            <a class="mapIcon" href="/pigeon-stories?city=Munich"></a>
+            <p class="generalH2 mapIconText">Munich</p>
+        </div>
     </section>
 </body>
 </html>

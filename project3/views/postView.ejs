@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>Pigeon Posts</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barriecito&family=Sahitya:wght@400;700&display=swap" rel="stylesheet">
+    <script src="postView.js"></script>
+    <script src="anime.min.js"></script>
+</head>
+<body>
+    <div id="pvText">
+        <h2 class="generalH2" id="pvH2">
+            <%= post.title %>
+        </h2>
+        <p class="generalP pvInfo" id="pvCity"><%= post.city%></p>
+        <p class="generalP pvInfo" id="pvName">
+            <% if (post.name) {%>
+                <%= post.name%>
+            <%} else {%>
+                Anonymous Pigeon
+            <%}%>
+        </p>
+        <p class="generalP pvInfo" id="pvDate"><%=post.date%></p>
+        <p class="generalP" id="pvContent"><%=post.content%></p>
+    </div>
+    <div id="pvGallery">
+        <% post.imgUrl.forEach(url=>{ %>
+            <img src="<%="upload/"+url%>" class="pvPics">
+        <%})%>
+    </div>
+</body>
+</html>

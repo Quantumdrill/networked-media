@@ -1,9 +1,15 @@
 window.onload=()=>{
+    for (let i=0;i<20;i++){
+        const pic = document.createElement("img")
+        pic.classList.add("ppBG")
+        pic.setAttribute("src","pigeon.svg")
+        pic.style.height=`${Math.random()*7+8}vh`
+        ppImgs.appendChild(pic)
+    }
     ppWritePost.addEventListener("click",()=>{
         wpForm.style.display = "flex"
         wpH2.style.display = "block"
         wpSection.style.display = "block"
-        wpSubmitted.style.display = "none"
         anime({
             targets: "#wpSection",
             right: "0vw",
@@ -53,9 +59,7 @@ window.onload=()=>{
         });
     })
     wpSubmit.addEventListener("click",()=>{
-        wpH2.style.display = "none"
-        wpForm.style.display = "none"
-        wpSection.style.display = "flex"
-        wpSubmitted.style.display = "flex"
     })
+
+    
 }
