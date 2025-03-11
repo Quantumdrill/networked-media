@@ -60,7 +60,7 @@ app.post("/submit", uploadProcessor.array("wpFile"), (req,res)=>{
     }
     
     DataArray.unshift(post)
-    res.redirect("/pigeon-posts")
+    res.redirect("/pigeon-stories")
 })
 
 app.get("/view-post", (req,res)=>{
