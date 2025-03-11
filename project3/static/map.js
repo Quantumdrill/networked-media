@@ -27,7 +27,7 @@ window.onload=()=>{
             offsetY = e.clientY - startY;
             map.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
             iconsUpdate()
-            
+            console.log(offsetY)
         } else {
             return;
         }
@@ -44,7 +44,7 @@ window.onload=()=>{
         scale += e.deltaY > 0 ? -zoomFactor : zoomFactor;
         scale = Math.min(Math.max(0.9, scale), 10); // Limit zoom levels
         offsetX = offsetX - (scale-prevscale)/prevscale*((mouseX - offsetX - window.innerWidth/2))
-        offsetY = offsetY - (scale-prevscale)/prevscale*((mouseY-window.innerHeight*0.15 - offsetY - window.innerHeight*0.85/2))
+        offsetY = offsetY - (scale-prevscale)/prevscale*((mouseY - window.innerHeight*0.15 - offsetY - window.innerHeight*0.85/2))
         map.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
         prevscale = scale;
         
@@ -58,7 +58,6 @@ window.onload=()=>{
             let container = document.getElementById("mapIconContainer"+location)
             container.style.left = coordinate.left-window.innerHeight*0.015
             container.style.bottom = window.innerHeight*0.985-coordinate.top
-            console.log(coordinate.top, container.style.top)
         })
     }   
 }
