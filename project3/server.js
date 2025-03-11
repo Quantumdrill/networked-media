@@ -69,6 +69,16 @@ app.get("/view-post", (req,res)=>{
     res.render("postView.ejs", {allPost:DataArray,post:post})
 })
 
+app.get("/edit-post", (req,res)=>{
+    res.render("postsEdit.ejs")
+})
+
+app.get("/edit-post-submit", (req,res)=>{
+    let currentIndex = Number(req.query.index)
+    DataArray = DataArray.filter(post => post.index !== currentIndex)
+    res.redirect("/edit-post")
+})
+
 app.listen(8080,()=>{
     console.log("http://127.0.0.1:8080")
 })
