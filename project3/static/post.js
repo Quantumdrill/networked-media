@@ -58,13 +58,27 @@ window.onload=()=>{
             easing: 'easeInOutExpo',
         });
     })
+    let ppFilterStatus = false;
     ppFilter.addEventListener("click",()=>{
-        anime({
-            targets: "#ppFilterMenu",
-            top: "8vh",
-            duration: 300,
-            easing: 'easeInOutExpo',
-        })
-    }) 
-    
+
+            anime({
+                targets: "#ppFilterMenu",
+                top: "0vh",
+                duration: 300,
+                easing: 'easeInOutExpo',
+            })
+            ppFilterStatus = true;
+            ppFilterCover.style.display="block";
+            ppFilterCover.addEventListener("click",()=>{
+                anime({
+                    targets: "#ppFilterMenu",
+                    top: "-23vh",
+                    duration: 300,
+                    easing: 'easeInOutExpo',
+                })
+                ppFilterStatus = false;
+                ppFilterCover.style.display="none";
+            })
+
+    })
 }

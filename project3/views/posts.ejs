@@ -17,20 +17,20 @@
         <h1 class="generalH1" id="ppH1">Pigeon Stories</h1>
         <menu id="ppHeaderMenu" >
             <div id="ppFilter" class="ppHeaderMenuItems">
-                
-                <div id="ppFilterMenu">
-                    <a id="ppFilterMap" class="generalA2 ppFilterMenuItems" href="/pigeons-in-the-world">Go To Map</a>
-                    <div id="ppFilterDivider"></div>
-                    <p id="ppFilterCity" class="generalH3 ppFilterMenuItems">Select City:</p>
-                    <form method="GET" enctype="multipart/form-data" id="ppForm">
-                        <input list="wpCitiesList" name="city" id="ppCity" placeholder="Leave blank to see all posts">
-                        <input type="submit" id="ppSubmit" value="OK">
-                    </form>
+                <div id="ppFilterMenuContainer">
+                    <div id="ppFilterMenu">
+                        <a id="ppFilterMap" class="generalA2 ppFilterMenuItems" href="/pigeons-in-the-world">Go To Map</a>
+                        <div id="ppFilterDivider"></div>
+                        <p id="ppFilterCity" class="generalH3 ppFilterMenuItems">Select City:</p>
+                        <form method="GET" enctype="multipart/form-data" id="ppForm">
+                            <input list="wpCitiesList" name="city" id="ppCity" placeholder="Leave blank to see all posts">
+                            <input type="submit" id="ppSubmit" value="OK">
+                        </form>
+                    </div>
                 </div>
-                <div id="ppFilterMenuCover"></div>
-                <div id="ppFilterText" class="generalA2">Filter</div>
+                <div id="ppFilterText" class="generalA">Filter</div>
             </div>
-            <p id="ppWritePost" class="generalA2 ppHeaderMenuItems">Write a post</p>
+            <p id="ppWritePost" class="generalA ppHeaderMenuItems">Write a post</p>
         </menu>
     </header>
     <main id="ppMain">
@@ -47,6 +47,7 @@
             </div>
         <%}) %>
     </main>
+    <div id="ppFilterCover"></div>
     <div id="wpBackCover"></div>
     <section id="wpSection">
         <img src="cross.svg" id="wpCrossImg">

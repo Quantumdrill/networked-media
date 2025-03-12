@@ -61,7 +61,8 @@ body {
 }
 
 .generalA:hover {
-    color: rgb(0, 109, 24)
+    color: rgb(0, 109, 24);
+    cursor: pointer;
 }
 
 /* Home --------------------------------------------------------------------- */
@@ -143,7 +144,6 @@ body {
     overflow: hidden;
     display: flex;
     align-items: flex-end;
-    
 }
 
 .ppBG {
@@ -160,6 +160,9 @@ body {
     align-items: center;
     padding: 0 10vw;
     box-sizing: border-box;
+    top: 0;
+    z-index: 2;
+    background-color: #e5e5e5;
 }
 
 #ppH1 {
@@ -182,20 +185,19 @@ body {
     width: calc(5vw + 8vh);
     height: 23vh;
     background-color: rgb(29, 54, 35);
-    top: 8vh;
     flex-direction: column;
     box-sizing: border-box;
     align-items: center;
-    translate: -2.5vw 0;
+    top: -23vh;
 }
 
-#ppFilterMenuCover {
+#ppFilterMenuContainer {
     position: absolute;
     width: calc(5vw + 8vh);
     height: 23vh;
-    background-color: #e5e5e5;
-    top: -15vh;
+    top: 8vh;
     translate: -2.5vw 0;
+    overflow: hidden;
 }
 
 #ppForm {
@@ -203,8 +205,6 @@ body {
     flex-direction: column;
     align-items: center;
 }
-
-
 
 .ppFilterMenuItems {
     width: 100%;
@@ -229,6 +229,17 @@ body {
     background-color: #fff;
     height: 0.1vh;
     width: 80%;
+}
+
+#ppFilterCover {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0%;
+    z-index: 1;
 }
 
 #ppCity {
@@ -266,12 +277,14 @@ body {
     flex-wrap: wrap;
     width: 84vw;
     margin: 0vh 8vw;
+    z-index: 0;
 }
 
 .ppMainPost {
     position: relative;
     margin: 0.5vw;
     margin-top: 0;
+    margin-bottom: 1vw;
     box-sizing: border-box;
     width: 20vw;
     height: 20vw;
@@ -314,7 +327,7 @@ body {
     top: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 7;
+    z-index: 3;
     background-color: rgba(0, 0, 0);
     opacity: 0%;
 }
@@ -327,7 +340,7 @@ body {
     top: 0;
     width: 40vw;
     height: 100vh;
-    z-index: 8;
+    z-index: 4;
     background-color: #e5e5e5;
     overflow-y: scroll;
     scrollbar-width: none;
