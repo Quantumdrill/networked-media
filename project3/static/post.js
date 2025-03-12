@@ -58,8 +58,13 @@ window.onload=()=>{
             easing: 'easeInOutExpo',
         });
     })
-    wpSubmit.addEventListener("click",()=>{
-    })
-
+    ppFilter.addEventListener("click",()=>{
+        anime({
+            targets: "#ppFilterMenu",
+            top: "8vh",
+            duration: 300,
+            easing: 'easeInOutExpo',
+        })
+    }) 
     
 }

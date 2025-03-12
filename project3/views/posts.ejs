@@ -16,13 +16,26 @@
     <header id="ppHeader">
         <h1 class="generalH1" id="ppH1">Pigeon Stories</h1>
         <menu id="ppHeaderMenu" >
-            <a id="ppFilter" class="generalA2 ppHeaderMenuItems" href="/pigeons-in-the-world">Choose City</a>
+            <div id="ppFilter" class="ppHeaderMenuItems">
+                
+                <div id="ppFilterMenu">
+                    <a id="ppFilterMap" class="generalA2 ppFilterMenuItems" href="/pigeons-in-the-world">Go To Map</a>
+                    <div id="ppFilterDivider"></div>
+                    <p id="ppFilterCity" class="generalH3 ppFilterMenuItems">Select City:</p>
+                    <form method="GET" enctype="multipart/form-data" id="ppForm">
+                        <input list="wpCitiesList" name="city" id="ppCity" placeholder="Leave blank to see all posts">
+                        <input type="submit" id="ppSubmit" value="OK">
+                    </form>
+                </div>
+                <div id="ppFilterMenuCover"></div>
+                <div id="ppFilterText" class="generalA2">Filter</div>
+            </div>
             <p id="ppWritePost" class="generalA2 ppHeaderMenuItems">Write a post</p>
         </menu>
     </header>
     <main id="ppMain">
         <% allPost.forEach((post)=>{ %>
-            <div class="ppMainPost">
+            <div class="ppMainPost" style="z-index: 2;">
                 <% if (post.imgUrl.length>0&&post.imgUrl[0]!=="noImage"){ %>
                     <img src="<%="upload/"+post.imgUrl[0]%>" class="ppMainPostContent">
                 <%} else {%>

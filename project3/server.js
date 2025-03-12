@@ -35,7 +35,9 @@ app.get("/pigeons-in-the-world",(req,res)=>{
 app.get("/pigeon-stories",(req,res)=>{
     filteredDataArray = DataArray
     if (req.query.city) {
-        filteredDataArray = DataArray.filter(post=>post.city===req.query.city.replace("%20", " "))
+        let cityWithSpace = req.query.city.replace("%20", " ")
+        cityWithSpace = req.query.city.replace("+", " ")
+        filteredDataArray = DataArray.filter(post=>post.city===cityWithSpace)
     }
     res.render("posts.ejs", {allPost:filteredDataArray})
 })
