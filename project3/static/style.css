@@ -82,8 +82,8 @@ body {
 
 #homeBG2 {
     position: fixed;
-    left: 70vh;
-    bottom: 28.5vh;
+    left: 38vh;
+    bottom: 30.8vh;
     height: 15vh;
     opacity: 40%;
     transform: scaleX(-1);

@@ -9,6 +9,7 @@ app.set("view engine","ejs")
 app.use(express.static("static"))
 app.use(encodedParser)
 let DataArray = []
+let filteredDataArray
 let index = 0;
 
 app.get("/",(req,res)=>{
@@ -32,7 +33,7 @@ app.get("/pigeons-in-the-world",(req,res)=>{
 })
 
 app.get("/pigeon-stories",(req,res)=>{
-    let filteredDataArray = DataArray
+    filteredDataArray = DataArray
     if (req.query.city) {
         filteredDataArray = DataArray.filter(post=>post.city===req.query.city.replace("%20", " "))
     }
