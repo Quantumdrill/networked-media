@@ -7,7 +7,7 @@ window.onload=()=>{
             pic.style.height=`${Math.random()*7+8}vh`
             //pic.style.display="none"
             ppImgs.appendChild(pic)
-        },30*i)
+        },70*i)
     };
     ppWritePost.addEventListener("click",()=>{
         wpForm.style.display = "flex"

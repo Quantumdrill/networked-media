@@ -135,6 +135,53 @@ body {
     font-size: 5vh;
 }
 
+/* toHome Button --------------------------------------------------------------------- */
+
+.toHome {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    opacity: 50%;
+}
+
+.toHome:hover {
+    opacity: 1;
+}
+
+.toHome:hover .toHomeBG {
+    translate: 0 -1.2vh;
+}
+
+.toHomeBG {
+    position: absolute;
+    width: 3.2vh;
+    left: 1.7vh;
+    transition: translate 0.3s;
+}
+
+.toHomeText {
+    position: absolute;
+    text-decoration: none;
+    font-size: 2.9vh;
+    top: 1.5vh;
+}
+
+#awToHome, #contactToHome, #ppToHome{
+    top: 5vh;
+    right: 8vw;
+}
+
+#apToHome{
+    top: 3vh;
+    right: 5vw;
+}
+
+#mapToHome{
+    top: 6vh;
+    right: 10vw;
+}
+
 /* Pigeon Posts --------------------------------------------------------------------- */
 
 #ppImgs {
@@ -477,6 +524,7 @@ input[type=submit] {
     left: 10vw;
     bottom: 45vh;
     width: 30vw;
+    font-size: 4vh;
 }
 
 #awP {
@@ -503,23 +551,25 @@ input[type=submit] {
 }
 
 #pvH2 {
-    font-size: 1.8vw;
+    font-size: 4vh;
     align-self: center;
     margin-bottom: 1vw;
     text-align: center;
 }
 
 .pvInfo {
-    font-size: 1.2vw;
+    font-size: 2.4vh;
     align-self: flex-end;
     color:#262626;
 }
 
 #pvContent {
-    font-size: 1vw;
+    font-size: 2.6vh;
     margin-top: 1.5vw;
     max-width: 30vw;
-    overflow-wrap:normal ;
+    overflow-wrap: normal;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 #pvGallery {
