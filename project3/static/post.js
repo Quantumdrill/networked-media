@@ -1,11 +1,14 @@
 window.onload=()=>{
     for (let i=0;i<20;i++){
-        const pic = document.createElement("img")
-        pic.classList.add("ppBG")
-        pic.setAttribute("src","pigeon.svg")
-        pic.style.height=`${Math.random()*7+8}vh`
-        ppImgs.appendChild(pic)
-    }
+        setTimeout(()=>{
+            const pic = document.createElement("img")
+            pic.classList.add("ppBG")
+            pic.setAttribute("src","pigeon.svg")
+            pic.style.height=`${Math.random()*7+8}vh`
+            //pic.style.display="none"
+            ppImgs.appendChild(pic)
+        },30*i)
+    };
     ppWritePost.addEventListener("click",()=>{
         wpForm.style.display = "flex"
         wpH2.style.display = "block"

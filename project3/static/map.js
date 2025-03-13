@@ -1,6 +1,5 @@
 window.onload=()=>{
     iconsUpdate()
-    iconsUpdate()
     //const map = document.getElementById("map");
     let isDragging = false;
     let startX, startY, offsetX = 0, offsetY = 0;
@@ -43,11 +42,10 @@ window.onload=()=>{
         let zoomFactor = 0.1;
         scale += e.deltaY > 0 ? -zoomFactor : zoomFactor;
         scale = Math.min(Math.max(0.9, scale), 10); // Limit zoom levels
-        offsetX = offsetX - (scale-prevscale)/prevscale*((mouseX - offsetX - window.innerWidth/2))
-        offsetY = offsetY - (scale-prevscale)/prevscale*((mouseY - window.innerHeight*0.15 - offsetY - window.innerHeight*0.85/2))
+        offsetX = offsetX - (scale-prevscale)/prevscale*(mouseX - offsetX - window.innerWidth/2)
+        offsetY = offsetY - (scale-prevscale)/prevscale*(mouseY - window.innerHeight*0.15 - offsetY - window.innerHeight*0.85/2)
         map.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
         prevscale = scale;
-        
         iconsUpdate()
     });
 
