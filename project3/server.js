@@ -1,6 +1,7 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const multer = require("multer")
+const fs = require("fs")
 
 const encodedParser = bodyParser.urlencoded({extended:true})
 const uploadProcessor = multer({dest:"static/upload"})
@@ -8,8 +9,10 @@ const app = express()
 app.set("view engine","ejs")
 app.use(express.static("static"))
 app.use(encodedParser)
+app.use(express.json())
 let DataArray = []
-let filteredDataArray
+let filteredDataArrayDisp
+let DataArrayDisp
 let index = 0;
 
 app.get("/",(req,res)=>{
@@ -33,16 +36,20 @@ app.get("/pigeons-in-the-world",(req,res)=>{
 })
 
 app.get("/pigeon-stories",(req,res)=>{
-    filteredDataArray = DataArray
+    DataArrayDisp = JSON.parse(fs.readFileSync("DataArray.json"))
+    console.log(DataArrayDisp)
     if (req.query.city) {
         let cityWithSpace = req.query.city.replace("%20", " ")
         cityWithSpace = req.query.city.replace("+", " ")
-        filteredDataArray = DataArray.filter(post=>post.city===cityWithSpace)
+        filteredDataArrayDisp = DataArrayDisp.filter(post=>post.city===cityWithSpace)
+    } else {
+        filteredDataArrayDisp = DataArrayDisp
     }
-    res.render("posts.ejs", {allPost:filteredDataArray})
+    res.render("posts.ejs", {allPost:filteredDataArrayDisp})
 })
 
 app.post("/submit", uploadProcessor.array("wpFile"), (req,res)=>{
+    DataArray = JSON.parse(fs.readFileSync("DataArray.json"))
     let now = new Date()
     let post={
         title: req.body.wpTitle,
@@ -64,6 +71,8 @@ app.post("/submit", uploadProcessor.array("wpFile"), (req,res)=>{
     }
     
     DataArray.unshift(post)
+    console.log(DataArray)
+    fs.writeFileSync("DataArray.json",JSON.stringify(DataArray))
     res.redirect("/pigeon-stories")
 })
 
