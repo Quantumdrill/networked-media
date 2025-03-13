@@ -58,7 +58,14 @@ app.post("/submit", uploadProcessor.array("wpFile"), (req,res)=>{
         city: req.body.wpCity,
         name: req.body.wpName,
         content: req.body.wpContent,
-        date: now.toLocaleString(),
+        date: new Intl.DateTimeFormat("en-GB",{
+            hour12: false,
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+        }).format(now),
         index: index,
     }
     index += 1;
