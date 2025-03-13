@@ -13,7 +13,12 @@
     <div id="ppImgs">
     </div>
     <header id="ppHeader">
-        <h1 class="generalH1" id="ppH1">Pigeon Stories</h1>
+        <h1 class="generalH1" id="ppH1">
+            Pigeon Stories
+            <% if(currentCity){%>
+                <%=" in "+currentCity%>
+            <%}%>
+        </h1>
         <menu id="ppHeaderMenu" >
             <div id="ppFilter" class="ppHeaderMenuItems">
                 <div id="ppFilterMenuContainer">
@@ -34,7 +39,7 @@
     </header>
     <main id="ppMain">
         <% allPost.forEach((post)=>{ %>
-            <div class="ppMainPost" style="z-index: 2;">
+            <div class="ppMainPost">
                 <% if (post.imgUrl.length>0&&post.imgUrl[0]!=="noImage"){ %>
                     <img src="<%="upload/"+post.imgUrl[0]%>" class="ppMainPostContent">
                 <%} else {%>

@@ -13,6 +13,7 @@ app.use(express.json())
 let DataArray = []
 let filteredDataArrayDisp
 let DataArrayDisp
+let currentCity
 let index = 0;
 
 app.get("/",(req,res)=>{
@@ -37,15 +38,16 @@ app.get("/pigeons-in-the-world",(req,res)=>{
 
 app.get("/pigeon-stories",(req,res)=>{
     DataArrayDisp = JSON.parse(fs.readFileSync("DataArray.json"))
-    console.log(DataArrayDisp)
     if (req.query.city) {
         let cityWithSpace = req.query.city.replace("%20", " ")
         cityWithSpace = req.query.city.replace("+", " ")
         filteredDataArrayDisp = DataArrayDisp.filter(post=>post.city===cityWithSpace)
+        currentCity = cityWithSpace
     } else {
         filteredDataArrayDisp = DataArrayDisp
+        currentCity = ""
     }
-    res.render("posts.ejs", {allPost:filteredDataArrayDisp})
+    res.render("posts.ejs", {allPost:filteredDataArrayDisp,currentCity:currentCity})
 })
 
 app.post("/submit", uploadProcessor.array("wpFile"), (req,res)=>{
@@ -71,15 +73,15 @@ app.post("/submit", uploadProcessor.array("wpFile"), (req,res)=>{
     }
     
     DataArray.unshift(post)
-    console.log(DataArray)
     fs.writeFileSync("DataArray.json",JSON.stringify(DataArray))
     res.redirect("/pigeon-stories")
 })
 
 app.get("/view-post", (req,res)=>{
+    DataArrayDisp = JSON.parse(fs.readFileSync("DataArray.json"))
     let currentIndex = Number(req.query.index)
-    post = DataArray.find(post=>post.index===currentIndex)
-    res.render("postView.ejs", {allPost:DataArray,post:post})
+    let post = DataArrayDisp.find(post=>post.index===currentIndex)
+    res.render("postView.ejs", {post:post})
 })
 
 app.get("/edit-post", (req,res)=>{
@@ -87,8 +89,10 @@ app.get("/edit-post", (req,res)=>{
 })
 
 app.get("/edit-post-submit", (req,res)=>{
+    DataArray = JSON.parse(fs.readFileSync("DataArray.json"))
     let currentIndex = Number(req.query.removeIndex)
     DataArray = DataArray.filter(post => post.index !== currentIndex)
+    fs.writeFileSync("DataArray.json",JSON.stringify(DataArray))
     res.redirect("/edit-post")
 })
 
