@@ -61,27 +61,34 @@ window.onload=()=>{
             easing: 'easeInOutExpo',
         });
     })
-    let ppFilterStatus = false;
-    ppFilter.addEventListener("click",()=>{
-
-            anime({
-                targets: "#ppFilterMenu",
-                top: "0vh",
-                duration: 300,
-                easing: 'easeInOutExpo',
-            })
-            ppFilterStatus = true;
-            ppFilterCover.style.display="block";
-            ppFilterCover.addEventListener("click",()=>{
-                anime({
-                    targets: "#ppFilterMenu",
-                    top: "-23vh",
-                    duration: 300,
-                    easing: 'easeInOutExpo',
-                })
-                ppFilterStatus = false;
-                ppFilterCover.style.display="none";
-            })
-
+    ppFilterText.addEventListener("click",()=>{
+        anime({
+            targets: "#ppFilterMenu",
+            top: "0vh",
+            duration: 300,
+            easing: 'easeInOutExpo',
+        })
+        ppFilterCover.style.display="block";
+        ppFilterCoverHeader.style.display="block";   
+    })
+    ppFilterCover.addEventListener("click",()=>{
+        anime({
+            targets: "#ppFilterMenu",
+            top: "-23vh",
+            duration: 300,
+            easing: 'easeInOutExpo',
+        })
+        ppFilterCover.style.display="none";
+        ppFilterCoverHeader.style.display="none";
+    })
+    ppFilterCoverHeader.addEventListener("click",()=>{
+        anime({
+            targets: "#ppFilterMenu",
+            top: "-23vh",
+            duration: 300,
+            easing: 'easeInOutExpo',
+        })
+        ppFilterCover.style.display="none";
+        ppFilterCoverHeader.style.display="none";
     })
 }
