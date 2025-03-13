@@ -302,10 +302,11 @@ body {
     object-fit: cover;
 }
 
-.ppMainPostContent {
+.ppMainPostContentText {
     position: absolute;
     font-size: 1.4vw;
     text-align: center;
+    padding: 0 2vw;
 }
 
 .ppMainPostCover {
@@ -488,19 +489,20 @@ input[type=submit] {
 }
 
 #pvH2 {
-    font-size: 1.5vw;
+    font-size: 1.8vw;
     align-self: center;
     margin-bottom: 1vw;
     text-align: center;
 }
 
 .pvInfo {
-    font-size: 1vw;
+    font-size: 1.2vw;
     align-self: flex-end;
     color:#262626;
 }
 
 #pvContent {
+    font-size: 1vw;
     margin-top: 1.5vw;
     max-width: 30vw;
     overflow-wrap:normal ;

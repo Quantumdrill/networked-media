@@ -66,7 +66,7 @@ app.post("/submit", uploadProcessor.array("wpFile"), (req,res)=>{
             hour: "numeric",
             minute: "numeric",
         }).format(now),
-        index: index,
+        index: DataArray[0].index+1,
     }
     index += 1;
     if (req.files){
