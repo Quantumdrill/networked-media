@@ -8,18 +8,7 @@ const masto = m.createRestAPIClient({
     accessToken: process.env.TOKEN
 })
 
-async function makeStatus(text){
-    const status = await masto.v1.statuses.create({
-        //what will be posted
-        status: text,
-        visibility: "public" //private for testing, public for final publish
-    })
-    //console.log(status.url)
-}
-
-let key1s = ["emotions","actions"]
-
-setInterval (()=>{
+async function makeStatus(){
     let kaomojis = JSON.parse(fs.readFileSync("kaomoji.json")) //credit: https://github.com/codingstark-dev/kaomoji
     let key1 = key1s[Math.floor(Math.random()*2)]
     let key2 = Object.keys(kaomojis[key1])[Math.floor(Math.random()*Object.keys(kaomojis[key1]).length)]
@@ -27,5 +16,18 @@ setInterval (()=>{
     let nowdate = new Date()
     let now = nowdate.toLocaleString()
     let sentence = "It's now "+now+", I be like:\n"+result
-    makeStatus(sentence)
+    const status = await masto.v1.statuses.create({
+        //what will be posted
+        status: sentence,
+        visibility: "public" //private for testing, public for final publish
+    })
+    //console.log(status.url)
+}
+
+let key1s = ["emotions","actions"]
+
+makeStatus()
+setInterval (()=>{
+    
+    makeStatus()
 }, 4387000)

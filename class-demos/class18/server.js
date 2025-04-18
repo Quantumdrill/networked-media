@@ -41,8 +41,9 @@ app.get("/", (request, response) => {
   // what steps do we need in order to use a template ejs file?
   // 
   let dataFindQuery = {} //query used to find data, pass in empty query to retrieve all data
-  database.find(dataFindQuery).exec((err,data)=>{  //find the data, and render the page in the callback
-    response.render('index.ejs', {posts:data})
+  let sortQuery = {timestamp:-1} //-1 means reverse order
+  database.find(dataFindQuery).sort(sortQuery).exec((err,data)=>{  //find the data, and render the page in the callback
+    response.render('index.ejs', {posts:data}) // the response is put inside the callback function so that the data can be retrieved before rendering
   })
   // make sure to comment out the res.send() code above
 });
@@ -63,10 +64,31 @@ app.post("/upload", upload.single("theimage"), (req,res)=>{
     data.image = "/uploads/" + req.file.filename
   }
 
-  //insert data: 1st param is the data to be inserted, 2nd param is the callback
+  //insert data: 1st param is the data to be inserted, 2nd param is the callback, the newData is what's been added to the database, returned from the database(with ID added)
   database.insert(data, (err, newData)=>{
     console.log(newData)
-    res.redirect("/")
+    res.redirect("/") 
+  })
+})
+
+app.get("/post/:id", (req, res)=>{
+
+  let query = {_id: req.params.id}
+  database.findOne(query,(err,data)=>{
+    res.render("post.ejs",{post:data})
+  })
+})
+
+app.get("/search", (req, res)=>{
+  let searchTerm = req.query.searchTerm
+  let imageOnly = req.query.imageOnly
+
+  let databaseSearch = {
+    text: new RegExp(searchTerm)
+  }
+
+  database.find(databaseSearch, (err, results)=>{
+    res.render("index.ejs",{posts:results})
   })
 })
 // what does the number signify?
