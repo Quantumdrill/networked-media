@@ -19,9 +19,9 @@ upFileTypes.addEventListener("change",e=>{
             upFileUpload.style.display = "block"
             break;
         case "video":
-            upH2TextFile.textContent = "Upload Video"
+            upH2TextFile.textContent = "Not supported yet"
             upTextArea.style.display = "none"
-            upFileUpload.style.display = "block"
+            upFileUpload.style.display = "none"
             break;
         case "link":
             upH2TextFile.textContent = "Enter link"

@@ -414,6 +414,7 @@ input[type=submit] {
     display: block;
     z-index: 1;
     color:#ffffff;
+    text-shadow: 2px 2px 2px black;
     position: relative;
     top: 65vh;
     font-size: 30px;
@@ -437,7 +438,7 @@ input[type=submit] {
     border: solid;
     border-color: #ffffff;
     border-radius: 20px;
-    border-width: 2px;
+    border-width: 1px;
     padding: 40px;
     box-sizing: border-box;
     overflow-y: scroll;

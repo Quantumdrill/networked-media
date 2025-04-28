@@ -27,18 +27,19 @@ window.addEventListener("resize",()=>{
 //loaders
 const objLoader = new OBJLoader()
 const texLoader = new THREE.TextureLoader()
-const rgbeLoader = new RGBELoader()
 
 //custom variables
 let sceneSizeMultiplier = 50
 let minimumDistanceBetweenObjects = 40
-let movementSpeed = 10
+let movementSpeed = 15
 let sceneFlatness = 6
 let interactionDist = 15
+let audioPlayDist = 80
 let nearestObj
 let camCtrlEnabled = true
 let menuOn = false
 let viewOn = false
+let audioArr = []
 
 //camera control
 const camctrl = new FirstPersonControls(cam,canvas)
@@ -48,13 +49,25 @@ camctrl.movementSpeed = movementSpeed
 scene.add(camctrl)
 
 //key controls
-document.addEventListener("keyup",(e)=>{
+document.addEventListener("keydown",e=>{
+    if (e.key==="Shift"){
+        camctrl.movementSpeed = movementSpeed*2
+    }
+})
+document.addEventListener("keyup",e=>{
     if (e.key==="Escape"&&viewOn===false) {
         toggleCamCtrl()
         toggleMenu()
     } else if (nearestObj&&e.key.toLowerCase()==="e"&&menuOn===false){
         toggleCamCtrl()
-        toggleView()
+        if (nearestObj.type==="link"){
+            window.open(nearestObj.text)
+        } else {
+            toggleView()
+        }
+    }
+    if (e.key==="Shift"){
+        camctrl.movementSpeed = movementSpeed
     }
 })
 function toggleCamCtrl(){
@@ -95,20 +108,36 @@ function displayView() {
     })
     switch (nearestObj.type){
         case "text":
-            roamViewText.textContent = nearestObj.textContent
+            roamViewText.textContent = nearestObj.text
             break
         case "image":
             for (let i=0;i<nearestObj.fileUrl.length;i++){
                 let pic = document.createElement("img")
                 pic.setAttribute("src","uploads/"+nearestObj.fileUrl[i])
                 pic.classList.add("roamViewPic")
-                roamViewBorder.appendChild(pic)
-                
+                roamViewBorder.appendChild(pic)   
+            }
+            break
+        case "textImage":
+            roamViewText.textContent = nearestObj.text
+            for (let i=0;i<nearestObj.fileUrl.length;i++){
+                let pic = document.createElement("img")
+                pic.setAttribute("src","uploads/"+nearestObj.fileUrl[i])
+                pic.classList.add("roamViewPic")
+                roamViewBorder.appendChild(pic)   
             }
     }
 }
 
 //lighting
+const lt = new THREE.DirectionalLight(new THREE.Color(0xd19a19), 4)
+const ltHemi = new THREE.HemisphereLight(new THREE.Color(0x390E4D),new THREE.Color(0x0A073E), 10)
+const ltAmb = new THREE.AmbientLight(new THREE.Color(0xd19a19), 0.21)
+lt.position.x = -10
+lt.position.z = 3
+lt.castShadow = true
+scene.add(lt)
+scene.add(ltHemi,ltAmb)
 texLoader.load("hdri.png",tex=>{
     objLoader.load("3Dassets/dome.obj",obj=>{
         const domeMat = new THREE.MeshBasicMaterial({ map: tex})
@@ -119,7 +148,35 @@ texLoader.load("hdri.png",tex=>{
     })
 })
 
+//ground shaders
+// let groundMeshSizes = {size:10000,subdivs:500}
+// const matt = new THREE.MeshBasicMaterial({color: 0xffffff,wireframe:true})
+// const groundGeo = new THREE.PlaneGeometry(groundMeshSizes.size,groundMeshSizes.size,groundMeshSizes.subdivs,groundMeshSizes.subdivs)
+// const groundVertCount = groundGeo.attributes.position.count
+// const noiseArr = new Float32Array(groundVertCount)
+// const matGround = new THREE.ShaderMaterial(
+//     vertexShader: `
+//     uniform mat4 projectionMatrix;
+//     uniform mat4 viewMatrix;
+//     uniform mat4 modelMatrix;
+//     attribute vec3 position;
 
+//     float noise(vec2 p) {
+//         return fract(sin(dot(p ,vec2(127.1,311.7))) * 43758.5453123);
+//     }
+//     void main(){
+//         vec3 newPosition = position;
+//         vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+//         newPosition.z = noise(position.xy);
+//         gl_Position = projectionMatrix * viewMatrix;
+//     }
+    
+//     `
+// )
+// let groundMesh = new THREE.Mesh(groundGeo,matt)
+// groundMesh.rotation.x = Math.PI/2
+// groundMesh.position.y = -50
+// scene.add(groundMesh)
 
 //data processing and object scattering
 let dataForRender = []
@@ -162,30 +219,39 @@ for (let i=0;i<dataForRender.length;i++){
         case "image":
             createPhotoFrame(contentCoord[i],dataForRender[i])
             break
+        case "text":
+        case "textImage":
+            if (Math.random()>0.5){
+                createBook(contentCoord[i],dataForRender[i])
+            } else {
+                createEnvelope(contentCoord[i],dataForRender[i])
+            }
+            break
+        case "audio":
+            createVinyl(contentCoord[i],dataForRender[i])
+            let audio = new Audio("uploads/"+dataForRender[i].fileUrl[0])
+            audioArr.push({audio,coord:contentCoord[i],play:false})
+            break
+        case "link":
+            createPortal(contentCoord[i],dataForRender[i])
+            break
+        case "model":
+            createModel(contentCoord[i],dataForRender[i])
+            break
     }
 }
 
-//test
-// const geo = new THREE.SphereGeometry(1)
-// mat.shineness = 80
-// mat.specular = new THREE.Color(0xeeeeee)
-// const mesh = new THREE.Mesh(geo, mat)
-// mesh.position.z = -3
-//scene.add(mesh)
-const lt = new THREE.DirectionalLight(new THREE.Color(0xd19a19), 4)
-const ltHemi = new THREE.HemisphereLight(new THREE.Color(0x390E4D),new THREE.Color(0x0A073E), 10)
-const ltAmb = new THREE.AmbientLight(new THREE.Color(0xd19a19), 0.21)
-lt.position.x = -10
-lt.position.z = 3
-lt.castShadow = true
-scene.add(lt)
-scene.add(ltHemi,ltAmb)
+
 
 
 //makeshift mat
 const mat = new THREE.MeshPhongMaterial({color:0xdddddd})
 mat.shineness = 50
 mat.specular = new THREE.Color(0xeeeeee)
+const matBl = new THREE.MeshPhongMaterial({color:0x000000})
+matBl.shineness = 95
+matBl.specular = new THREE.Color(0xeeeeee)
+const matEmi = new THREE.MeshStandardMaterial({color:0xade5f7,emissive:0xade5f7,emissiveIntensity:100})
 
 //photoframe
 function createPhotoFrame(coord,data){
@@ -225,8 +291,106 @@ function createPhotoFrame(coord,data){
     scene.add(grpPhotoFrame)
 }
 
-//check distance
+//vinyl
+function createVinyl(coord,data){
+    const grpVinyl = new THREE.Group()
+    objLoader.load("3Dassets/vinylRim.obj",obj=>{
+        obj.receiveShadow = true
+        obj.castShadow = true
+        obj.children[0].material = matBl
+        obj.scale.set(0.05,0.05,0.05)
+        grpVinyl.add(obj)
+    })
+    objLoader.load("3Dassets/vinylLabel.obj",obj=>{
+        obj.receiveShadow = true
+        obj.castShadow = true
+        obj.children[0].material = mat
+        obj.scale.set(0.05,0.05,0.05)
+        grpVinyl.add(obj)
+    })
+    grpVinyl.position.copy(coord)
+    grpVinyl.rotation.y = Math.random()*Math.PI*2
+    grpVinyl.rotation.x = Math.random()*Math.PI-Math.PI/2
+    scene.add(grpVinyl)
+}
 
+function createBook(coord,data){
+    const grpBook = new THREE.Group()
+    let scale = 0.05
+    objLoader.load("3Dassets/bookCover.obj",obj=>{
+        obj.receiveShadow = true
+        obj.castShadow = true
+        obj.children[0].material = mat
+        obj.scale.set(scale,scale,scale)
+        grpBook.add(obj)
+    })
+    objLoader.load("3Dassets/bookPaper.obj",obj=>{
+        obj.receiveShadow = true
+        obj.castShadow = true
+        obj.children[0].material = mat
+        obj.scale.set(scale,scale,scale)
+        grpBook.add(obj)
+    })
+    grpBook.position.copy(coord)
+    grpBook.rotation.y = Math.random()*Math.PI*2
+    grpBook.rotation.x = Math.random()*Math.PI-Math.PI/2
+    scene.add(grpBook)
+}
+
+function createEnvelope(coord,data){
+    const grpEnvelope = new THREE.Group()
+    let scale = 0.05
+    objLoader.load("3Dassets/envelope.obj",obj=>{
+        obj.receiveShadow = true
+        obj.castShadow = true
+        obj.children[0].material = mat
+        obj.scale.set(scale,scale,scale)
+        grpEnvelope.add(obj)
+    })
+    grpEnvelope.position.copy(coord)
+    grpEnvelope.rotation.y = Math.random()*Math.PI*2
+    grpEnvelope.rotation.x = Math.random()*Math.PI-Math.PI/2
+    scene.add(grpEnvelope)
+}
+
+function createPortal(coord,data){
+    const grpPortal = new THREE.Group()
+    let scale = 0.05
+    objLoader.load("3Dassets/portal.obj",obj=>{
+        obj.receiveShadow = true
+        obj.castShadow = true
+        obj.children[0].material = mat
+        obj.scale.set(scale,scale,scale)
+        grpPortal.add(obj)
+    })
+    objLoader.load("3Dassets/portalLight.obj",obj=>{
+        obj.receiveShadow = true
+        obj.castShadow = true
+        obj.children[0].material = matEmi
+        obj.scale.set(scale,scale,scale)
+        grpPortal.add(obj)
+    })
+    grpPortal.position.copy(coord)
+    grpPortal.rotation.y = Math.random()*Math.PI*2
+    grpPortal.rotation.x = Math.random()*Math.PI/3-Math.PI/6
+    scene.add(grpPortal)
+}
+
+function createModel(coord,data){
+    const grpModel = new THREE.Group()
+    let scale = 0.05
+    objLoader.load("uploads/"+data.fileUrl[0],obj=>{
+        obj.receiveShadow = true
+        obj.castShadow = true
+        obj.children[0].material = mat
+        obj.scale.set(scale,scale,scale)
+        grpModel.add(obj)
+    })
+    grpModel.position.copy(coord)
+    grpModel.rotation.y = Math.random()*Math.PI*2
+    grpModel.rotation.x = Math.random()*Math.PI-Math.PI/2
+    scene.add(grpModel)
+}
 
 //tick
 const clock = new THREE.Clock()
@@ -235,11 +399,31 @@ const tick = ()=>{
     for (let i=0;i<contentCoord.length;i++){
         if (cam.position.distanceTo(contentCoord[i])<interactionDist){
             nearestObj = dataForRender[i]
+            if (nearestObj.type==="audio"){
+                roamHUDCenter.textContent = ""
+            } else if (nearestObj.type==="link"){
+                roamHUDCenter.textContent = "[E]Go to:"+nearestObj.text
+            } else {
+                roamHUDCenter.textContent = "[E]View"
+            }
             roamHUDCenter.style.display = "block"
             break
         } else {
             nearestObj = ""
             roamHUDCenter.style.display = "none"
+        }
+    }
+    for (let i=0;i<audioArr.length;i++){
+        if (cam.position.distanceTo(audioArr[i].coord)<audioPlayDist){
+            if (audioArr[i].play === false){
+                audioArr[i].audio.play()
+                audioArr[i].play = true
+            } else {
+                audioArr[i].audio.volume = (1-cam.position.distanceTo(audioArr[i].coord)/audioPlayDist)*0.7
+            }
+        } else {
+            audioArr[i].play = false
+            audioArr[i].audio.pause()
         }
     }
     renderer.render(scene,cam)
