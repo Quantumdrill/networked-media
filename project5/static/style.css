@@ -93,6 +93,7 @@
     justify-content: center;
     background-color: rgba(0,0,0,0.5);
     color:#ffffff;
+    z-index: 5;
 }
 
 .escMenuItems {
@@ -430,10 +431,26 @@ input[type=submit] {
 }
 
 #roamViewBorder {
+    position: absolute;
     height: 94vh;
     width: 40vw;
     border: solid;
     border-color: #ffffff;
     border-radius: 20px;
     border-width: 2px;
+    padding: 40px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+#roamViewText {
+    color: #ffffff;
+    font-size: 25px;
+}
+
+.roamViewPic {
+    width: 100%;
+    object-fit: contain;
 }

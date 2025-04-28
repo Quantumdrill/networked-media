@@ -49,10 +49,10 @@ scene.add(camctrl)
 
 //key controls
 document.addEventListener("keyup",(e)=>{
-    if (e.key==="Escape") {
+    if (e.key==="Escape"&&viewOn===false) {
         toggleCamCtrl()
         toggleMenu()
-    } else if (nearestObj&&e.key.toLowerCase()==="e"){
+    } else if (nearestObj&&e.key.toLowerCase()==="e"&&menuOn===false){
         toggleCamCtrl()
         toggleView()
     }
@@ -81,11 +81,30 @@ function toggleMenu(){
 function toggleView() {
     if (viewOn === false){
         roamViewContainer.style.display = "flex"
-
+        displayView()
         viewOn = true
     } else {
         roamViewContainer.style.display = "none"
         viewOn = false
+    }
+}
+function displayView() {
+    roamViewText.textContent = ""
+    Array.from(document.getElementsByClassName("roamViewPic")).forEach(elem=>{
+        roamViewBorder.removeChild(elem)
+    })
+    switch (nearestObj.type){
+        case "text":
+            roamViewText.textContent = nearestObj.textContent
+            break
+        case "image":
+            for (let i=0;i<nearestObj.fileUrl.length;i++){
+                let pic = document.createElement("img")
+                pic.setAttribute("src","uploads/"+nearestObj.fileUrl[i])
+                pic.classList.add("roamViewPic")
+                roamViewBorder.appendChild(pic)
+                
+            }
     }
 }
 
@@ -165,7 +184,7 @@ scene.add(ltHemi,ltAmb)
 
 //makeshift mat
 const mat = new THREE.MeshPhongMaterial({color:0xdddddd})
-mat.shineness = 80
+mat.shineness = 50
 mat.specular = new THREE.Color(0xeeeeee)
 
 //photoframe
