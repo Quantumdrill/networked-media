@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="account.js"></script>
+    <title>Register</title>
+</head>
+<body class="acctBG">
+    <div class="acctBox">
+        <h1 class="acctH1 pFont">Register</h1>
+        <form action="/newAccount" method="POST" enctype="multipart/form-data" class="acctForm">
+            <input type="text" name="userid" placeholder="ID" class="acctID">
+            <input type="password" name="password" placeholder="password" class="acctPassword">
+            <input type="submit" name="submit" value="Register" class="acctSubmit">
+        </form>
+        <a href="/login" class="acctLink pFont">Login if you have registered</a>
+    </div>
+    <div class="scanlinesContainer"><div class="scanlines"></div></div>
+</body>
+</html>

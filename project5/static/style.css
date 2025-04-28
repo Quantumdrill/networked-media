@@ -29,3 +29,411 @@
     font-weight: bold;
     font-style: normal;
 }
+
+.generalLink {
+    text-decoration: none;
+}
+
+.generalLink:visited {
+    /* color: inherit; */
+    text-decoration: none;
+}
+
+* {
+    margin: 0;
+    /* overflow: hidden; */
+}
+
+/* Ref: https://codepen.io/ynef/pen/yvvyGv */
+.scanlinesContainer{
+    position: fixed;
+    pointer-events: none;
+}
+.scanlines {
+    overflow: hidden;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+.scanlines:before, .scanlines:after {
+    display: block;
+    
+    content: "";
+    position: absolute;
+}
+.scanlines:before {
+    width: 100%;
+    height: 2px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0.75;
+}
+.scanlines:after {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 0, 0, 0.1) 51%
+    );
+    background-size: 100% 4px;
+}
+/* Ref: https://codepen.io/ynef/pen/yvvyGv */
+
+.escMenu {
+    position: fixed;
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.5);
+    color:#ffffff;
+}
+
+.escMenuItems {
+    color:#ffffff;
+    font-size: 20px;
+    margin: 5vh;
+}
+
+.escMenuItems:hover {
+    color:#EE40C3
+}
+
+.escMenuTitle {
+    padding-bottom: 20vh;
+    color:#ffffff;
+    font-size: 20px;
+}
+
+#hmBG {
+    background-color: rgb(249, 220, 170);
+}
+
+#hmH {
+    position: fixed;
+}
+
+#hmH1 {
+    font-size: 20px;
+    margin: 6px 0;
+    color:#470938;
+}
+
+#hmH2 {
+    font-size: 13px;
+    margin: 6px 0;
+}
+
+#hmHContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+}
+
+#hmOptionsContainer {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+}
+
+#hmHorizontalContainer {
+    width: 70vw;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    color: #000000;
+}
+
+#hmRoam:hover {
+    color:#470938;
+}
+
+#hmTrace:hover {
+    color:#470938;
+}
+
+
+
+#upBG {
+    background-color: #120C1D;
+}
+
+#upForm {
+    position: absolute;
+}
+
+#upBoxes {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 35fr 23fr 4fr 31fr;
+    grid-template-rows: 9fr 18fr 8fr 10fr;
+    background-color: #EE40C3;
+    gap: 4px;
+    padding: 4px;
+    width: calc(96vw + 20px);
+    height: calc(89vh + 20px);
+    margin: 0 calc((4vw - 20px)/2);
+    margin-top: calc((10vh - 20px)/3)
+}
+
+#upBoxes > div {
+    background-color: #120C1D;
+}
+
+#upBoxTitle {
+    grid-column: 1 / span 2;
+    position: relative;
+}
+
+#upBoxDescription {
+    grid-column: 3 / span 2;
+    position: relative;
+}
+
+#upBoxFileType {
+    position: relative;
+}
+
+#upBoxTextFile {
+    grid-row: 3 / span 2;
+    position: relative;
+}
+
+#upBoxVisualization {
+    grid-row: 2 / span 3;
+    grid-column: 2 / span 2;
+    position: relative;
+}
+
+#upBoxPreview {
+    grid-row: 2 / span 2;
+}
+
+#upBoxSubmit {
+    position: relative;
+}
+
+#upH1 {
+    color: #ffffff;
+    font-size: 42px;
+    text-shadow: 5.5px 5.5px #EE40C3;
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+}
+
+#upDescription {
+    font-size: 14px;
+    color: #ffffff;
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    width: 80%;
+    line-height: 120%;
+}
+
+#upH2FileType {
+    position: absolute;
+    font-size: 14px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    left: 40px;
+    top: 30px;
+}
+
+#upFileTypes {
+    position: absolute;
+    font-size: 14px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    right: 60px;
+    bottom: 30px;
+}
+
+#upFileTypes > div {
+    margin-top: 5px;
+}
+
+#upH2TextFile {
+    position: absolute;
+    font-size: 14px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    left: 40px;
+    top: 30px;
+}
+
+#upTextFile {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 60px);
+    height: calc(85% - 60px);
+    margin: 30px;
+    flex-direction: column;
+    justify-content: end;
+}
+
+#upTextArea {
+    display: none;
+    background-color: black;
+    border: none;
+    resize: none;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+}
+
+.upTextArea::placeholder {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: left;
+    text-wrap: wrap;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+#upFileUpload {
+    display: none;
+}
+
+#upFileUpload::file-selector-button {
+    background-color: #EE40C3;
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: #ffffff;
+    width: 100%;
+    height: 5vh; 
+    margin-top: 2vh;
+}
+
+#upSubmit {
+    position: absolute;
+    margin: 40px;
+    box-sizing: border-box;
+    background-color: #EE40C3;
+    width: calc(100% - 80px);
+    height: calc(100% - 80px);
+    color: #ffffff;
+}
+
+input[type=submit] {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+
+
+.acctBG {
+    background-color: #120C1D;
+}
+
+.acctBox {
+    position: fixed;
+    height: 70vh;
+    width: 56vh;
+    border: solid;
+    border-width: 4px;
+    border-color:#EE40C3;
+    margin: calc(15vh - 4px) calc(50vw - 28vh - 4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.acctForm {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.acctH1 {
+    color: #ffffff;
+    font-size: 42px;
+    text-shadow: 5.5px 5.5px #EE40C3;
+    margin-top: 40px;
+}
+
+.acctLink {
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.acctLink:hover {
+    color: #EE40C3;
+}
+
+#roamBG {
+    overflow: hidden;
+}
+
+#roamCanvas {
+    position: absolute;
+}
+
+#roamHUD {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+#roamHUDCenter {
+    display: block;
+    z-index: 1;
+    color:#ffffff;
+    position: relative;
+    top: 65vh;
+    font-size: 30px;
+}
+
+#roamViewContainer {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.8);
+    color:#ffffff;
+}
+
+#roamViewBorder {
+    height: 94vh;
+    width: 40vw;
+    border: solid;
+    border-color: #ffffff;
+    border-radius: 20px;
+    border-width: 2px;
+}

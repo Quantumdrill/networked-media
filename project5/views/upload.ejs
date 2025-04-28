@@ -10,9 +10,71 @@
         }}
     </script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="upload.js" type="module"></script>
     <title>Leave your trace</title>
 </head>
-<body>
+<body id="upBG">
     
+    <form method="post" action="/upload" enctype="multipart/form-data" id="upForm">
+        <div id="upBoxes">
+            <div id="upBoxTitle">
+                <h1 id="upH1" class="pFont">Leave your trace</h1>
+            </div>
+            <div id="upBoxDescription">
+                <p id="upDescription" class="pFont">Here you can upload what you feel meaningful to you and leave a trace in the cyber afterlife.</p>
+            </div>
+            <div id="upBoxFileType">
+                <h2 id="upH2FileType" class="pFont">Choose file type</h2>
+                <div id="upFileTypes">
+                    <div id="upFileTypeImage">
+                        <input type="radio" id="radioImage" name="fileType" value="image">
+                        <label for="radioImage" class="pFont upP">Image</label>
+                    </div>
+                    <div id="upFileTypeText">
+                        <input type="radio" id="radioText" name="fileType" value="text">
+                        <label for="radioText" class="pFont upP">Text</label>
+                    </div>
+                    <div id="upFileTypeAudio">
+                        <input type="radio" id="radioAudio" name="fileType" value="audio">
+                        <label for="radioAudio" class="pFont upP">Audio</label>
+                    </div>
+                    <div id="upFileTypeVideo">
+                        <input type="radio" id="radioVideo" name="fileType" value="video">
+                        <label for="radioVideo" class="pFont upP">Video</label>
+                    </div>
+                    <div id="upFileTypeLink">
+                        <input type="radio" id="radioLink" name="fileType" value="link">
+                        <label for="radioLink" class="pFont upP">Web Link</label>
+                    </div>
+                    <div id="upFileTypeModel">
+                        <input type="radio" id="radioModel" name="fileType" value="model">
+                        <label for="radioModel" class="pFont upP">3D Model (OBJ)</label>
+                    </div>
+                    <div id="upFileTypeTextImage">
+                        <input type="radio" id="radioTextImage" name="fileType" value="textImage">
+                        <label for="radioTextImage" class="pFont upP">Text + Image</label>
+                    </div>
+                </div>
+            </div>
+            <div id="upBoxTextFile">
+                <h2 id="upH2TextFile" class="pFont">Upload File</h2>
+                <div id="upTextFile">
+                    <textarea name="text" value="N/A" placeholder="Write your text here" id="upTextArea" class="pFont"></textarea>
+                    <input type="file" name="fileUpload" id="upFileUpload" multiple>
+                </div>
+            </div>
+            <div id="upBoxVisualization"></div>
+            <div id="upBoxPreview"></div>
+            <div id="upBoxSubmit">
+                <input type="submit" value="Submit" id="upSubmit">
+            </div>
+        </div>
+    </form>
+    <div class="escMenu">
+        <p class="pFont escMenuTitle">Menu</p>
+        <a href="/roam" class="pFont generalLink escMenuItems">Roam the space</a>
+        <a href="/" class="pFont generalLink escMenuItems">Home Menu</a>
+    </div>
+    <div class="scanlinesContainer"><div class="scanlines"></div></div>
 </body>
 </html>

@@ -9,10 +9,28 @@
             "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.175.0/examples/jsm/"
         }}
     </script>
+    <script>
+        const data = <%- JSON.stringify(data) %>;
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="roam.js" type="module"></script>
     <title>Cyber Afterlife</title>
 </head>
-<body>
-    
+<body id="roamBG">
+    <canvas id="roamCanvas"></canvas>
+    <div id="roamHUD">
+        <p id="roamHUDCenter" class="lFont">[E]View</p>
+    </div>
+    <div class="escMenu">
+        <p class="pFont escMenuTitle">Menu</p>
+        <a href="/trace" class="pFont generalLink escMenuItems">Leave your trace</a>
+        <a href="/" class="pFont generalLink escMenuItems">Home Menu</a>
+    </div>
+    <div id="roamViewContainer">
+        <div id="roamViewBorder">
+            
+        </div>
+    </div>
+    <div class="scanlinesContainer"><div class="scanlines"></div></div>
 </body>
 </html>

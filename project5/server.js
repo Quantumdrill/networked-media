@@ -27,9 +27,10 @@ app.use(expressSession({
 }))
 app.set("view engine","ejs")
 app.use(express.static("static"))
+app.use(urlEncodedParser)
 
 //global variables
-let accountPage = {title:"Login",type:"login"}
+let roamPage = {title:"Roam the space",type:"roam"}
 let userData = {}
 let loginStatus = false
 
@@ -39,61 +40,98 @@ function checkLoginStatus (req,res,next){
         loginStatus = true
         next()
     } else {
-        // not logged in!!!
+        res.redirect("/login?err=loginRequired")
     }
 }
 
 app.get("/", (req,res)=>{
     res.render("home.ejs")
-}) 
-
-app.get("/login", (req,res)=>{
-    accountPage = {title:"Login",type:"login"}
-    res.render("account.ejs",{account:accountPage})
 })
 
-app.get("/register", (req,res)=>{
-    accountPage = {title:"Register",type:"register"}
-    res.render("account.ejs",{account:accountPage})
-})
-
-app.post("/auth", (req,res)=>{
-    udb.findOne({userID: req.body.id}, (err,user)=>{
-        if (err||user === null){
-            //login not success
-        } else {
-            if (bcrypt.compareSync(req.body.password, user.password)){
-                res.redirect("/collections")
-            } else {
-                //login not success
-            }
-        }
+app.get("/roam", (req,res)=>{
+    roamPage = {title:"Roam the space",type:"roam"}
+    db.find({},(err,back)=>{
+        res.render("roam.ejs",{data:back})
     })
 })
 
-app.post("/newAccount", (req,res)=>{
-    let newUser = {
-        userID: req.body.id,
-        password: bcrypt.hashSync(req.body.password,10)
+app.get("/trace", checkLoginStatus, (req,res)=>{
+    res.render("upload.ejs")
+})
+
+app.post("/upload", upload.array("fileUpload"), (req,res)=>{
+    let data = {
+        type: req.body.fileType,
+        text: req.body.text,
+        //file: req.file.
+        // style: {
+        //     modelType:
+        // },
+        userID: userData.ID,
     }
-    udb.findOne({userID: req.body.id}, (err,user)=>{ //check if ID exists
-        if (err||user === null){
-            udb.insert(newUser,(err,user)=>{
-                let session = req.session
-                session.loggedIn = user.ID
-                res.redirect("/login")
-            })
-        } else {
-            // ID exists!!
-        }
+    let filesArr = []
+    for (let i=0;i<req.files.length;i++){
+        filesArr.push(req.files[i].filename)
+    }
+    data.fileUrl = filesArr
+    db.insert(data,(err,back)=>{
+        res.redirect("/roam")
     })
     
 })
 
-app.get('/logout', (req, res)=>{
+app.get("/login", (req,res)=>{
+    res.render("login.ejs")
+})
+
+app.get("/register", (req,res)=>{
+    res.render("register.ejs")
+})
+
+app.post("/auth", upload.none(), (req,res)=>{
+    if (req.body.userid&&req.body.password){
+        udb.findOne({userID: req.body.userid}, (err,user)=>{
+            if (err||user === null){
+                res.redirect("/login?err=loginFailed")
+            } else {
+                if (bcrypt.compareSync(req.body.password, user.password)){
+                    let session = req.session
+                    session.loggedIn = user.userID
+                    userData.ID = user.userID
+                    res.redirect("/collections")
+                } else {
+                    res.redirect("/login?err=loginFailed")
+                }
+            }
+        })
+    }
+    
+})
+
+app.post("/newAccount", upload.none(), (req,res)=>{
+    if (req.body.userid&&req.body.password){
+        let newUser = {
+            userID: req.body.userid,
+            password: bcrypt.hashSync(req.body.password,10)
+        }
+        udb.findOne({userID: req.body.userid}, (err,user)=>{ //check if ID exists
+            if (err||user === null){
+                udb.insert(newUser,(err,user)=>{
+                    res.redirect("/login")
+                })
+            } else {
+                res.redirect("/register?err=accountExists")
+            }
+        })
+    }
+    
+})
+
+app.get("/logout", (req,res)=>{
     delete req.session.loggedInUser
+    delete userData.ID
     res.redirect('/login')
-  })
+})
 
 app.listen(8081, ()=>{
     console.log("http://127.0.0.1:8081")
