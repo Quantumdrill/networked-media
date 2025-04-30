@@ -10,3 +10,21 @@ switch (query.get("err")){
         alert("ID already exists")
         break
 }
+let menuOn = false
+let escMenu = document.getElementsByClassName("escMenu")
+document.addEventListener("keyup",(e)=>{
+    if (e.key==="Escape") {
+        toggleMenu()
+    }
+})
+function toggleMenu(){
+    if (menuOn === false){
+        Array.from(escMenu).forEach(elem=>{elem.style.display="flex"})
+        menuOn = true
+    } else {
+        Array.from(escMenu).forEach(elem=>{elem.style.display="none"})
+        menuOn = false
+    }
+}
+
+

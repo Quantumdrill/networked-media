@@ -12,10 +12,17 @@
         <h1 class="acctH1 pFont">Login</h1>
         <form action="/auth" method="POST" enctype="multipart/form-data" class="acctForm">
             <input type="text" name="userid" placeholder="ID" class="acctID">
-            <input type="password" name="password" placeholder="password" class="acctPassword">
+            <input type="password" name="password" placeholder="Password" class="acctPassword">
             <input type="submit" name="submit" value="Login" class="acctSubmit">
         </form>
         <a href="/register" class="acctLink pFont">Register if you are new here</a>
+    </div>
+    <div class="escMenu">
+        <p class="pFont escMenuTitle">Menu</p>
+        <a href="/roam" class="pFont generalLink escMenuItems">Roam the space</a>
+        <a href="/collection" class="pFont generalLink escMenuItems">My Collections</a>
+        <a href="/trace" class="pFont generalLink escMenuItems">Leave your trace</a>
+        <a href="/" class="pFont generalLink escMenuItems">Home Page</a>
     </div>
     <div class="scanlinesContainer"><div class="scanlines"></div></div>
 </body>

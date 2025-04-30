@@ -15,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
     <script src="roam.js" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noisejs/2.1.0/perlin.min.js"></script>
-    <title>Cyber Afterlife</title>
+    <title><%= page.title%></title>
 </head>
 <body id="roamBG">
     <canvas id="roamCanvas"></canvas>
@@ -24,6 +24,17 @@
     </div>
     <div class="escMenu">
         <p class="pFont escMenuTitle">Menu</p>
+        
+            <% if (loginStatus) { %>
+                <a href="/logout" class="pFont generalLink escMenuItems">Logout</a>
+            <% } else { %>  
+                <a href="/login" class="pFont generalLink escMenuItems">Login</a>
+            <% } %>
+        <% if (page.type==="roam"){%>
+            <a href="/collection" class="pFont generalLink escMenuItems">My Collections</a>
+        <% } else { %>
+            <a href="/collection" class="pFont generalLink escMenuItems">Roam the space</a>
+        <% } %>
         <a href="/trace" class="pFont generalLink escMenuItems">Leave your trace</a>
         <a href="/" class="pFont generalLink escMenuItems">Home Page</a>
     </div>

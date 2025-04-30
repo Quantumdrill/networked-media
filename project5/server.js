@@ -30,7 +30,6 @@ app.use(express.static("static"))
 app.use(urlEncodedParser)
 
 //global variables
-let roamPage = {title:"Roam the space",type:"roam"}
 let userData = {}
 let loginStatus = false
 
@@ -48,14 +47,19 @@ app.get("/", (req,res)=>{
     res.render("home.ejs")
 })
 
-app.get("/roam", (req,res)=>{
-    roamPage = {title:"Roam the space",type:"roam"}
+app.get("/roam", checkLoginStatus, (req,res)=>{
     db.find({},(err,back)=>{
-        res.render("roam.ejs",{data:back})
+        res.render("roam.ejs",{data:back,loginStatus,page:{title:"Roaming the space",type:"roam"}})
     })
 })
 
-app.get("/trace", checkLoginStatus, (req,res)=>{
+app.get("/collection", checkLoginStatus, (req,res)=>{
+    db.find({},(err,back)=>{
+        res.render("roam.ejs",{data:back,loginStatus,page:{title:"My collection",type:"collection"}})
+    })
+})
+
+app.get("/trace", (req,res)=>{
     res.render("upload.ejs")
 })
 
@@ -63,10 +67,11 @@ app.post("/upload", upload.array("fileUpload"), (req,res)=>{
     let data = {
         type: req.body.fileType,
         text: req.body.text,
-        //file: req.file.
-        // style: {
-        //     modelType:
-        // },
+        style: {
+            modelType: req.body.modelType,
+            shininess: req.body.shininess,
+            color: req.body.color,
+        },
         userID: userData.ID,
     }
     let filesArr = []
@@ -98,14 +103,13 @@ app.post("/auth", upload.none(), (req,res)=>{
                     let session = req.session
                     session.loggedIn = user.userID
                     userData.ID = user.userID
-                    res.redirect("/collections")
+                    res.redirect("/roam")
                 } else {
                     res.redirect("/login?err=loginFailed")
                 }
             }
         })
     }
-    
 })
 
 app.post("/newAccount", upload.none(), (req,res)=>{
@@ -128,9 +132,10 @@ app.post("/newAccount", upload.none(), (req,res)=>{
 })
 
 app.get("/logout", (req,res)=>{
-    delete req.session.loggedInUser
+    delete req.session.loggedIn
     delete userData.ID
-    res.redirect('/login')
+    loginStatus = false
+    res.redirect("/login") 
 })
 
 app.listen(8081, ()=>{

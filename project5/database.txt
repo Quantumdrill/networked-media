@@ -1,0 +1,1 @@
+{"type":"text","text":"","style":{"modelType":"model1","shininess":"88","color":"#861919"},"fileUrl":[],"_id":"quKVXM7mADZZ1XEz"}

@@ -35,7 +35,7 @@ let movementSpeed = 15
 let sceneFlatness = 6
 let interactionDist = 15
 let audioPlayDist = 80
-let nearestObj
+let nearestObj = {}
 let camCtrlEnabled = true
 let menuOn = false
 let viewOn = false
@@ -61,8 +61,15 @@ document.addEventListener("keyup",e=>{
     } else if (nearestObj&&e.key.toLowerCase()==="e"&&menuOn===false){
         toggleCamCtrl()
         if (nearestObj.type==="link"){
-            window.open(nearestObj.text)
-        } else {
+            scene.remove(camctrl)
+            if (nearestObj.text.slice(0,7)!=="http://"&&nearestObj.text.slice(0,8)!=="https://"){
+                window.open("https://"+nearestObj.text) 
+            } else {
+                window.open(nearestObj.text) 
+            }
+            scene.add(camctrl)
+        } else if (nearestObj.type==="audio"){
+        } else { 
             toggleView()
         }
     }
@@ -85,9 +92,11 @@ let escMenu = document.getElementsByClassName("escMenu")
 function toggleMenu(){
     if (menuOn === false){
         Array.from(escMenu).forEach(elem=>{elem.style.display="flex"})
+        roamHUD.style.display = "none"
         menuOn = true
     } else {
         Array.from(escMenu).forEach(elem=>{elem.style.display="none"})
+        roamHUD.style.display = "flex" 
         menuOn = false
     }
 }
@@ -178,6 +187,15 @@ texLoader.load("hdri.png",tex=>{
 // groundMesh.position.y = -50
 // scene.add(groundMesh)
 
+//mat
+const mat = new THREE.MeshStandardMaterial({color:0xdddddd})
+mat.roughness = 0.6
+const matBl = new THREE.MeshStandardMaterial({color:0x000000})
+matBl.roughness = 0.2
+const matPaper = new THREE.MeshStandardMaterial({color:0xeeeeee})
+matPaper.roughness = 0.9
+const matEmi = new THREE.MeshStandardMaterial({color:0xade5f7,emissive:0xade5f7,emissiveIntensity:100})
+
 //data processing and object scattering
 let dataForRender = []
 if(data.length<100){
@@ -221,7 +239,7 @@ for (let i=0;i<dataForRender.length;i++){
             break
         case "text":
         case "textImage":
-            if (Math.random()>0.5){
+            if (dataForRender[i].style.modelType==="model1"){
                 createBook(contentCoord[i],dataForRender[i])
             } else {
                 createEnvelope(contentCoord[i],dataForRender[i])
@@ -242,16 +260,6 @@ for (let i=0;i<dataForRender.length;i++){
 }
 
 
-
-
-//makeshift mat
-const mat = new THREE.MeshPhongMaterial({color:0xdddddd})
-mat.shineness = 50
-mat.specular = new THREE.Color(0xeeeeee)
-const matBl = new THREE.MeshPhongMaterial({color:0x000000})
-matBl.shineness = 95
-matBl.specular = new THREE.Color(0xeeeeee)
-const matEmi = new THREE.MeshStandardMaterial({color:0xade5f7,emissive:0xade5f7,emissiveIntensity:100})
 
 //photoframe
 function createPhotoFrame(coord,data){
@@ -316,6 +324,7 @@ function createVinyl(coord,data){
 
 function createBook(coord,data){
     const grpBook = new THREE.Group()
+    let mat = new THREE.MeshStandardMaterial({color:new THREE.Color(data.style.color),roughness:1-data.style.shininess/100})
     let scale = 0.05
     objLoader.load("3Dassets/bookCover.obj",obj=>{
         obj.receiveShadow = true
@@ -327,7 +336,7 @@ function createBook(coord,data){
     objLoader.load("3Dassets/bookPaper.obj",obj=>{
         obj.receiveShadow = true
         obj.castShadow = true
-        obj.children[0].material = mat
+        obj.children[0].material = matPaper
         obj.scale.set(scale,scale,scale)
         grpBook.add(obj)
     })
@@ -396,13 +405,13 @@ function createModel(coord,data){
 const clock = new THREE.Clock()
 const tick = ()=>{
     camctrl.update(clock.getDelta())
-    for (let i=0;i<contentCoord.length;i++){
+    for (let i=0;i<contentCoord.length;i++){  //proximity check for interaction
         if (cam.position.distanceTo(contentCoord[i])<interactionDist){
             nearestObj = dataForRender[i]
             if (nearestObj.type==="audio"){
                 roamHUDCenter.textContent = ""
             } else if (nearestObj.type==="link"){
-                roamHUDCenter.textContent = "[E]Go to:"+nearestObj.text
+                roamHUDCenter.textContent = "[E]Go to: "+nearestObj.text
             } else {
                 roamHUDCenter.textContent = "[E]View"
             }
@@ -413,7 +422,7 @@ const tick = ()=>{
             roamHUDCenter.style.display = "none"
         }
     }
-    for (let i=0;i<audioArr.length;i++){
+    for (let i=0;i<audioArr.length;i++){  //proximity check for sound
         if (cam.position.distanceTo(audioArr[i].coord)<audioPlayDist){
             if (audioArr[i].play === false){
                 audioArr[i].audio.play()

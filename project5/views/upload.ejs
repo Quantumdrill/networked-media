@@ -26,34 +26,13 @@
             <div id="upBoxFileType">
                 <h2 id="upH2FileType" class="pFont">Choose file type</h2>
                 <div id="upFileTypes">
-                    <div id="upFileTypeImage">
-                        <input type="radio" id="radioImage" name="fileType" value="image">
-                        <label for="radioImage" class="pFont upP">Image</label>
-                    </div>
-                    <div id="upFileTypeText">
-                        <input type="radio" id="radioText" name="fileType" value="text">
-                        <label for="radioText" class="pFont upP">Text</label>
-                    </div>
-                    <div id="upFileTypeAudio">
-                        <input type="radio" id="radioAudio" name="fileType" value="audio">
-                        <label for="radioAudio" class="pFont upP">Audio</label>
-                    </div>
-                    <div id="upFileTypeVideo">
-                        <input type="radio" id="radioVideo" name="fileType" value="video">
-                        <label for="radioVideo" class="pFont upP">Video</label>
-                    </div>
-                    <div id="upFileTypeLink">
-                        <input type="radio" id="radioLink" name="fileType" value="link">
-                        <label for="radioLink" class="pFont upP">Web Link</label>
-                    </div>
-                    <div id="upFileTypeModel">
-                        <input type="radio" id="radioModel" name="fileType" value="model">
-                        <label for="radioModel" class="pFont upP">3D Model (OBJ)</label>
-                    </div>
-                    <div id="upFileTypeTextImage">
-                        <input type="radio" id="radioTextImage" name="fileType" value="textImage">
-                        <label for="radioTextImage" class="pFont upP">Text + Image</label>
-                    </div>
+                    <label for="radioImage" class="pFont upP"><input type="radio" id="radioImage" name="fileType" value="image">Image</label>
+                    <label for="radioText" class="pFont upP"><input type="radio" id="radioText" name="fileType" value="text">Text</label>
+                    <label for="radioAudio" class="pFont upP"><input type="radio" id="radioAudio" name="fileType" value="audio">Audio</label>
+                    <label for="radioVideo" class="pFont upP"><input type="radio" id="radioVideo" name="fileType" value="video">Video</label>
+                    <label for="radioLink" class="pFont upP"><input type="radio" id="radioLink" name="fileType" value="link">Web Link</label>
+                    <label for="radioModel" class="pFont upP"><input type="radio" id="radioModel" name="fileType" value="model">3D Model (OBJ)</label>
+                    <label for="radioTextImage" class="pFont upP"><input type="radio" id="radioTextImage" name="fileType" value="textImage">Text + Image</label>
                 </div>
             </div>
             <div id="upBoxTextFile">
@@ -63,8 +42,37 @@
                     <input type="file" name="fileUpload" id="upFileUpload" multiple>
                 </div>
             </div>
-            <div id="upBoxVisualization"></div>
-            <div id="upBoxPreview"></div>
+            <div id="upBoxVisualization">
+                <h2 id="upH2ModelType" class="pFont">Choose model type</h2>
+                <div id="upModelTypes">
+                    <label for="radioModel1" id="radioLabelModel1" class="pFont upP upModelTypeLabel">
+                        <input type="radio" id="radioModel1" name="modelType" value="model1">
+                        <span id="radioTitleModel1"></span>
+                    </label>
+                    <label for="radioModel2" id="radioLabelModel2" class="pFont upP upModelTypeLabel">
+                        <input type="radio" id="radioModel2" name="modelType" value="model2">
+                        <span id="radioTitleModel2"></span>
+                    </label>
+                    <label for="radioModel3" id="radioLabelModel3" class="pFont upP upModelTypeLabel">
+                        <input type="radio" id="radioModel3" name="modelType" value="model3">
+                        <span id="radioTitleModel3"></span>
+                    </label>
+                </div>
+                <h2 id="upH2ModelOptions" class="pFont">Model Options</h2>
+                <div id="upModelOptions">
+                    <p id="sliderLabelShininess" class="pFont upP">Shininess</p>
+                    <input type="range" min="0" max="90" id="sliderShininess" name="shininess" value="40">
+                </div>
+                <h2 id="upH2ModelColor" class="pFont">Color</h2>
+                <div id="upModelColor">
+                    <input type="color" id="colorPicker" name="color" value="#dddddd">
+                </div>
+            </div>
+            <div id="upBoxPreview">
+                <canvas id="upCanvas"></canvas>
+                <h2 id="upH2Preview" class="pFont">Model Preview</h2>
+                
+            </div>
             <div id="upBoxSubmit">
                 <input type="submit" value="Submit" id="upSubmit">
             </div>
@@ -73,6 +81,7 @@
     <div class="escMenu">
         <p class="pFont escMenuTitle">Menu</p>
         <a href="/roam" class="pFont generalLink escMenuItems">Roam the space</a>
+        <a href="/collection" class="pFont generalLink escMenuItems">My Collections</a>
         <a href="/" class="pFont generalLink escMenuItems">Home Page</a>
     </div>
     <div class="scanlinesContainer"><div class="scanlines"></div></div>
