@@ -145,6 +145,7 @@ window.addEventListener("resize",()=>{
     renderer.setSize(scrnSize.w,scrnSize.h)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio,2))
 })
+const fileReader = new FileReader();
 
 //loaders
 const objLoader = new OBJLoader()
@@ -182,7 +183,8 @@ const matEmi = new THREE.MeshStandardMaterial({color:0xade5f7,emissive:0xade5f7,
 //update preview
 let grp = new THREE.Group()
 function updateModel (){
-    if (grp.children){grp.children=[]}
+    if (grp.children){grp.children=[]}//clearing the group before switching to a new model
+    if (file){updateFile(file)}
     switch (fileType){
         case "image":
             createPhotoFrame()
@@ -212,10 +214,41 @@ function updateMat(){
 }
 
 //photoframe
-function createPhotoFrame(data){
-    // texLoader.load("uploads/"+data.fileUrl,tex=>{
-        // tex.center.set(0.5, 0.5)
-        // let ratio = tex.image.width/tex.image.height/(4/3)
+function createPhotoFrame(photo){
+    // 
+    if (photo){
+        texLoader.load(photo,tex=>{
+            tex.center.set(0.5, 0.5)
+            let ratio = tex.image.width/tex.image.height/(4/3)
+            objLoader.load("3Dassets/photoframe.obj",obj=>{
+                obj.receiveShadow = true
+                obj.castShadow = true
+                obj.children[0].material = mat
+                obj.scale.set(0.05,0.05,0.05)
+                grp.add(obj)
+            })
+            objLoader.load("3Dassets/photoframePhoto.obj",obj=>{
+                obj.receiveShadow = true
+                obj.castShadow = true
+                const mat = new THREE.MeshPhongMaterial({map:tex})
+                obj.children[0].material = mat
+                obj.scale.set(0.05,0.05,0.05)
+                grp.add(obj)
+            })
+            if (tex.image.width/tex.image.height<1){
+                tex.rotation = Math.PI/2
+                ratio = tex.image.width/tex.image.height/(3/4)
+                grp.rotation.z = -Math.PI/2
+            }
+            if (ratio>1){
+                tex.repeat.set(1/ratio, 1)
+            } else {
+                tex.repeat.set(1, ratio)
+            }
+        })  
+        grp.rotation.y = Math.PI
+        scene.add(grp)
+    } else {
         objLoader.load("3Dassets/photoframe.obj",obj=>{
             obj.receiveShadow = true
             obj.castShadow = true
@@ -226,24 +259,13 @@ function createPhotoFrame(data){
         objLoader.load("3Dassets/photoframePhoto.obj",obj=>{
             obj.receiveShadow = true
             obj.castShadow = true
-            // const mat = new THREE.MeshPhongMaterial({map:tex})
             obj.children[0].material = mat
             obj.scale.set(0.05,0.05,0.05)
             grp.add(obj)
         })
-        // if (tex.image.width/tex.image.height<1){
-        //     tex.rotation = Math.PI/2
-        //     ratio = tex.image.width/tex.image.height/(3/4)
-        //     grp.rotation.z = -Math.PI/2
-        // }
-        // if (ratio>1){
-        //     tex.repeat.set(ratio, 1)
-        // } else {
-        //     tex.repeat.set(1, ratio)
-        // }
-    // })
-    grp.rotation.y = Math.PI
-    scene.add(grp)
+        grp.rotation.y = Math.PI
+        scene.add(grp)
+    }
 }
 
 //vinyl
@@ -315,16 +337,39 @@ function createPortal(data){
     scene.add(grp)
 }
 
-function createModel(data){
+
+function createModel(model){
     let scale = 0.05
-    objLoader.load("uploads/"+data.fileUrl[0],obj=>{
+    if (model){
+        const obj = objLoader.parse(model)
         obj.receiveShadow = true
         obj.castShadow = true
         obj.children[0].material = mat
         obj.scale.set(scale,scale,scale)
         grp.add(obj)
-    })
-    scene.add(grp)
+        scene.add(grp)
+    }
+}
+
+// models involved with files
+let file
+upFileUpload.addEventListener("change",e=>{
+    if (grp.children){grp.children=[]}
+    file = e.target.files[0]
+    updateFile(file)
+})
+function updateFile(e){
+    if(fileType==="model"&&file){
+        fileReader.onload = (read) => {
+            createModel(read.target.result)
+        }
+        fileReader.readAsText(file);
+    } else if (fileType==="image"&&file){
+        fileReader.onload = (read) => {
+            createPhotoFrame(read.target.result)
+        }
+        fileReader.readAsDataURL(file);    
+    }
 }
 
 //tick

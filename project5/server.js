@@ -37,7 +37,12 @@ let loginStatus = false
 function checkLoginStatus (req,res,next){
     if(req.session.loggedIn){
         loginStatus = true
-        next()
+        userData.ID = req.session.loggedIn
+        udb.findOne({userID:userData.ID},(err,back)=>{
+            userData.collection = back.collection
+            next()
+        })
+        
     } else {
         res.redirect("/login?err=loginRequired")
     }
@@ -54,15 +59,28 @@ app.get("/roam", checkLoginStatus, (req,res)=>{
 })
 
 app.get("/collection", checkLoginStatus, (req,res)=>{
-    db.find({},(err,back)=>{
+    db.find({_id:{$in:userData.collection}},(err,back)=>{
+        
         res.render("roam.ejs",{data:back,loginStatus,page:{title:"My collection",type:"collection"}})
     })
+})
+
+app.post("/toCollection", (req,res)=>{
+    udb.findOne({userID:userData.ID},(err,back)=>{
+
+        back.collection.push(req.query.collected)
+        userData.collection.push(req.query.collected)
+        udb.update({userID:userData.ID},back,{},(err,back)=>{
+            res.redirect("/")
+        })
+    })
+    
 })
 
 app.get("/trace", (req,res)=>{
     res.render("upload.ejs")
 })
-
+ 
 app.post("/upload", upload.array("fileUpload"), (req,res)=>{
     let data = {
         type: req.body.fileType,
@@ -103,6 +121,7 @@ app.post("/auth", upload.none(), (req,res)=>{
                     let session = req.session
                     session.loggedIn = user.userID
                     userData.ID = user.userID
+                    userData.collection = user.collection
                     res.redirect("/roam")
                 } else {
                     res.redirect("/login?err=loginFailed")
@@ -116,7 +135,8 @@ app.post("/newAccount", upload.none(), (req,res)=>{
     if (req.body.userid&&req.body.password){
         let newUser = {
             userID: req.body.userid,
-            password: bcrypt.hashSync(req.body.password,10)
+            password: bcrypt.hashSync(req.body.password,10),
+            collection: []
         }
         udb.findOne({userID: req.body.userid}, (err,user)=>{ //check if ID exists
             if (err||user === null){

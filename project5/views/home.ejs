@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -10,10 +9,11 @@
         }}
     </script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-    <script src="home.js"></script>
+    <script src="home.js" type="module"></script>
     <title>Cyber Afterlife</title>
 </head>
 <body id="hmBG">
+    <canvas id="hmCanvas"></canvas>
     <div id="hmH">
         <div id="hmHContainer">
             <h1 class="pFont" id="hmH1">Welcome to the cyber afterlife</h1>
@@ -24,9 +24,13 @@
                 <a href="/roam" class="pFont generalLink" id="hmRoam">Roam the space</a>
                 <a href="/trace" class="pFont generalLink" id="hmTrace">Leave your trace</a>
             </div>
+            <p class="pFont" id="hmAbout">About</p>
         </div>
     </div>
-    
+    <div id="hmAboutContainer">
+        <div id="hmAboutContent" class="pFont">This is where you go after you are dead, not the Heaven or the Hell, but the Cyberspace. In this space, you are nothing but just a node in the whole internet. You don’t have your physical body and the ability to do any interaction other than sharing and browsing content in the space. It's a place full of people’s stories and memories. Share something that is meaningful to you and something that you want to leave to the world when you still have the chance.</div>
+        <p class="pFont" id="hmAboutReturn">Back</p>
+    </div>
     <div class="scanlinesContainer"><div class="scanlines"></div></div>
 </body>
 </html>

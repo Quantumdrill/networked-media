@@ -112,8 +112,21 @@
     font-size: 20px;
 }
 
+.escHint {
+    position: fixed;
+    color:#ffffff;
+    font-size: 14px;
+    bottom: 15px;
+    left: calc((4vw - 20px)/2);
+}
+
 #hmBG {
     background-color: rgb(249, 220, 170);
+}
+
+#hmCanvas {
+    position: fixed;
+    /* z-index: 8; */
 }
 
 #hmH {
@@ -123,7 +136,7 @@
 #hmH1 {
     font-size: 20px;
     margin: 6px 0;
-    color:#470938;
+    color:#50227c;
 }
 
 #hmH2 {
@@ -149,6 +162,7 @@
     justify-content: center;
     align-items: center;
     opacity: 0;
+    flex-direction: column;
 }
 
 #hmHorizontalContainer {
@@ -159,15 +173,58 @@
     color: #000000;
 }
 
+#hmRoam,#hmTrace {
+    color:#50227c;
+}
+
+#hmAbout {
+    font-size: 20px;
+    color: #50227c;
+    position: fixed;
+    bottom: 26vh;
+}
+
+#hmAbout:hover {
+    cursor: pointer;
+    color:#ffffff;
+}
+
 #hmRoam:hover {
-    color:#470938;
+    color:#ffffff;
 }
 
 #hmTrace:hover {
-    color:#470938;
+    color:#ffffff;
 }
 
+#hmAboutContainer {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    opacity: 0;
+}
 
+#hmAboutContent {
+    color: #ffffff;
+    font-size: 20px;
+    padding: 20vh 20vw;
+    line-height: 130%;
+}
+
+#hmAboutReturn {
+    position: fixed;
+    color:#ffffff;
+    font-size: 20px;
+    top: 8vh;
+    left: 10vw;
+}
+
+#hmAboutReturn:hover {
+    cursor: pointer;
+    color: #EE40C3;
+}
 
 #upBG {
     background-color: #120C1D;

@@ -1,8 +1,13 @@
 import * as THREE from "three"
 import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.js'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js'
-import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
-
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
+import { Line2 } from 'three/addons/lines/Line2.js';
+import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 
 //initialize
 const scene = new THREE.Scene()
@@ -13,6 +18,8 @@ renderer.shadowMap.enabled = true
 renderer.setSize(scrnSize.w,scrnSize.h)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio,2))
 const cam = new THREE.PerspectiveCamera(60, scrnSize.w/scrnSize.h)
+cam.far = 3500
+cam.position.y = -50
 scene.add(cam)
 window.addEventListener("resize",()=>{
     camctrl.handleResize()
@@ -54,7 +61,7 @@ document.addEventListener("keydown",e=>{
         camctrl.movementSpeed = movementSpeed*2
     }
 })
-document.addEventListener("keyup",e=>{
+document.addEventListener("keyup",async e=>{
     if (e.key==="Escape"&&viewOn===false) {
         toggleCamCtrl()
         toggleMenu()
@@ -72,10 +79,12 @@ document.addEventListener("keyup",e=>{
         } else { 
             toggleView()
         }
-    }
-    if (e.key==="Shift"){
+    } else if (nearestObj&&e.key.toLowerCase()==="q"&&menuOn===false){
+        await fetch ("/toCollection?collected="+nearestObj._id,{method:"POST"})
+    } else if (e.key==="Shift"){
         camctrl.movementSpeed = movementSpeed
     }
+    
 })
 function toggleCamCtrl(){
     if (camCtrlEnabled === true){
@@ -142,50 +151,75 @@ function displayView() {
 const lt = new THREE.DirectionalLight(new THREE.Color(0xd19a19), 4)
 const ltHemi = new THREE.HemisphereLight(new THREE.Color(0x390E4D),new THREE.Color(0x0A073E), 10)
 const ltAmb = new THREE.AmbientLight(new THREE.Color(0xd19a19), 0.21)
-lt.position.x = -10
+lt.position.x = 1000
 lt.position.z = 3
 lt.castShadow = true
 scene.add(lt)
 scene.add(ltHemi,ltAmb)
-texLoader.load("hdri.png",tex=>{
-    objLoader.load("3Dassets/dome.obj",obj=>{
-        const domeMat = new THREE.MeshBasicMaterial({ map: tex})
-        domeMat.side = THREE.DoubleSide
-        obj.children[0].material = domeMat
-        scene.add(obj)
-        obj.scale.set(10,10,10)
-    })
+texLoader.load("hdri_roam.png",tex=>{
+    tex.colorSpace = THREE.SRGBColorSpace
+    tex.mapping = THREE.EquirectangularReflectionMapping
+    scene.background = tex
+    scene.backgroundIntensity = 1.1
+    scene.environment = tex
+    scene.environmentIntensity = 1.4
 })
 
-//ground shaders
-// let groundMeshSizes = {size:10000,subdivs:500}
-// const matt = new THREE.MeshBasicMaterial({color: 0xffffff,wireframe:true})
-// const groundGeo = new THREE.PlaneGeometry(groundMeshSizes.size,groundMeshSizes.size,groundMeshSizes.subdivs,groundMeshSizes.subdivs)
-// const groundVertCount = groundGeo.attributes.position.count
-// const noiseArr = new Float32Array(groundVertCount)
-// const matGround = new THREE.ShaderMaterial(
-//     vertexShader: `
-//     uniform mat4 projectionMatrix;
-//     uniform mat4 viewMatrix;
-//     uniform mat4 modelMatrix;
-//     attribute vec3 position;
-
-//     float noise(vec2 p) {
-//         return fract(sin(dot(p ,vec2(127.1,311.7))) * 43758.5453123);
-//     }
-//     void main(){
-//         vec3 newPosition = position;
-//         vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-//         newPosition.z = noise(position.xy);
-//         gl_Position = projectionMatrix * viewMatrix;
-//     }
+//ground mesh
+let GMS = {size:4000,subdivs:60} //groundMeshSizes
+let GMStyle = {color:0xb8cfff,noiseSmall:100,noiseBig:500}
+//failed
+// async function shaderMat(){
+//     const meshVert = await fetch("shaders/roamMeshVert.glsl").then(r=>r.text())
+//     const meshFrag = await fetch("shaders/roamMeshFrag.glsl").then(r=>r.text())
+//     let groundMeshSizes = {size:5000,subdivs:100}
+//     const matGround = new THREE.ShaderMaterial({
+//         vertexShader: meshVert,
+//         fragmentShader: meshFrag,
+//     })
     
-//     `
-// )
-// let groundMesh = new THREE.Mesh(groundGeo,matt)
-// groundMesh.rotation.x = Math.PI/2
-// groundMesh.position.y = -50
-// scene.add(groundMesh)
+//     const groundGeo = new THREE.PlaneGeometry(groundMeshSizes.size,groundMeshSizes.size,groundMeshSizes.subdivs,groundMeshSizes.subdivs)
+//     groundGeo.computeTangents() //calculate tangents for normal
+//     let groundMesh = new THREE.Mesh(groundGeo,matGround)
+//     groundMesh.rotation.x = -Math.PI/2
+//     groundMesh.position.y = -100
+//     scene.add(groundMesh)
+//     console.log(groundMesh.geometry.attributes.position.array)
+// }
+// shaderMat()
+const noise = new Noise(0.3)
+for (let i=0;i<GMS.subdivs+1;i++){
+    let points = []
+    for (let k=0;k<GMS.subdivs+1;k++){
+        let a = -GMS.size/2+i*GMS.size/GMS.subdivs
+        let b = -GMS.size/2+k*GMS.size/GMS.subdivs
+        let vec3 = new THREE.Vector3(a,noise.perlin2(a/GMStyle.noiseBig,b/GMStyle.noiseBig)*80+noise.simplex2(a/GMStyle.noiseSmall,b/GMStyle.noiseSmall)*10-150,b)
+        points.push(vec3)
+    }
+    const lngeo = new LineGeometry()
+    const lnmat = new LineMaterial({color:GMStyle.color,linewidth:2})
+    lngeo.setFromPoints(points)
+    // lngeo.fromLine(ln)
+    const ln2 = new Line2(lngeo,lnmat)
+    scene.add(ln2)
+}
+for (let i=0;i<GMS.subdivs+1;i++){
+    let points = []
+    for (let k=0;k<GMS.subdivs+1;k++){
+        let a = -GMS.size/2+k*GMS.size/GMS.subdivs
+        let b = -GMS.size/2+i*GMS.size/GMS.subdivs
+        let vec3 = new THREE.Vector3(a,noise.perlin2(a/GMStyle.noiseBig,b/GMStyle.noiseBig)*80+noise.simplex2(a/GMStyle.noiseSmall,b/GMStyle.noiseSmall)*10-150,b)
+        points.push(vec3)
+    }
+    const lngeo = new LineGeometry()
+    const lnmat = new LineMaterial({color:GMStyle.color,linewidth:2})
+    lngeo.setFromPoints(points)
+    // lngeo.fromLine(ln)
+    const ln2 = new Line2(lngeo,lnmat)
+    scene.add(ln2)
+}
+
+
 
 //mat
 const mat = new THREE.MeshStandardMaterial({color:0xdddddd})
@@ -216,7 +250,7 @@ dataForRender.forEach(elem=>{
         let phi = Math.random()*2*Math.PI
         let theta = Math.random()*Math.PI-Math.PI/2
         let rho = Math.random()*Math.cbrt(dataForRender.length)*sceneSizeMultiplier
-        let yCoord = rho*Math.sin(theta)/sceneFlatness
+        let yCoord = rho*Math.sin(theta)/sceneFlatness-50
         let xCoord = rho*Math.cos(theta)*Math.cos(phi)
         let zCoord = rho*Math.cos(theta)*Math.sin(phi)
         let vec3 = new THREE.Vector3(xCoord,yCoord,zCoord)
@@ -288,7 +322,7 @@ function createPhotoFrame(coord,data){
             grpPhotoFrame.rotation.z = -Math.PI/2
         }
         if (ratio>1){
-            tex.repeat.set(ratio, 1)
+            tex.repeat.set(1/ratio, 1)
         } else {
             tex.repeat.set(1, ratio)
         }
@@ -348,6 +382,7 @@ function createBook(coord,data){
 
 function createEnvelope(coord,data){
     const grpEnvelope = new THREE.Group()
+    let mat = new THREE.MeshStandardMaterial({color:new THREE.Color(data.style.color),roughness:1-data.style.shininess/100})
     let scale = 0.05
     objLoader.load("3Dassets/envelope.obj",obj=>{
         obj.receiveShadow = true
@@ -401,6 +436,20 @@ function createModel(coord,data){
     scene.add(grpModel)
 }
 
+//postprocessing
+const effectComposer = new EffectComposer(renderer)
+effectComposer.setSize(scrnSize.w,scrnSize.h)
+effectComposer.setPixelRatio(window.devicePixelRatio)
+const renderPass = new RenderPass(scene, cam)
+const unrealBloomPass = new UnrealBloomPass()
+const outputPass = new OutputPass()
+unrealBloomPass.strength = 0.43
+unrealBloomPass.radius = 0.3
+unrealBloomPass.threshold = 0.45
+effectComposer.addPass(renderPass)
+effectComposer.addPass(unrealBloomPass)
+effectComposer.addPass(outputPass)
+
 //tick
 const clock = new THREE.Clock()
 const tick = ()=>{
@@ -411,9 +460,9 @@ const tick = ()=>{
             if (nearestObj.type==="audio"){
                 roamHUDCenter.textContent = ""
             } else if (nearestObj.type==="link"){
-                roamHUDCenter.textContent = "[E]Go to: "+nearestObj.text
+                roamHUDCenter.textContent = "[Q]Add to Collection  [E]Go to: "+nearestObj.text
             } else {
-                roamHUDCenter.textContent = "[E]View"
+                roamHUDCenter.textContent = "[Q]Add to Collection  [E]View"
             }
             roamHUDCenter.style.display = "block"
             break
@@ -435,7 +484,7 @@ const tick = ()=>{
             audioArr[i].audio.pause()
         }
     }
-    renderer.render(scene,cam)
+    effectComposer.render(scene,cam)
     window.requestAnimationFrame(tick)
 }
 tick()

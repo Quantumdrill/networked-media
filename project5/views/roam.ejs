@@ -10,11 +10,11 @@
         }}
     </script>
     <script>
-        const data = <%- JSON.stringify(data) %>;
+        const data = <%- JSON.stringify(data) %>
     </script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/noisejs@2.1.0/index.min.js"></script>
     <script src="roam.js" type="module"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noisejs/2.1.0/perlin.min.js"></script>
     <title><%= page.title%></title>
 </head>
 <body id="roamBG">
@@ -33,7 +33,7 @@
         <% if (page.type==="roam"){%>
             <a href="/collection" class="pFont generalLink escMenuItems">My Collections</a>
         <% } else { %>
-            <a href="/collection" class="pFont generalLink escMenuItems">Roam the space</a>
+            <a href="/roam" class="pFont generalLink escMenuItems">Roam the space</a>
         <% } %>
         <a href="/trace" class="pFont generalLink escMenuItems">Leave your trace</a>
         <a href="/" class="pFont generalLink escMenuItems">Home Page</a>
