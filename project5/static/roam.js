@@ -46,6 +46,7 @@ let nearestObj = {}
 let camCtrlEnabled = true
 let menuOn = false
 let viewOn = false
+let guideOn = false
 let audioArr = []
 
 //camera control
@@ -83,6 +84,8 @@ document.addEventListener("keyup",async e=>{
         await fetch ("/toCollection?collected="+nearestObj._id,{method:"POST"})
     } else if (e.key==="Shift"){
         camctrl.movementSpeed = movementSpeed
+    } else if (e.key.toLowerCase()==="g"&&menuOn===false){
+        toggleGuide()
     }
     
 })
@@ -117,6 +120,15 @@ function toggleView() {
     } else {
         roamViewContainer.style.display = "none"
         viewOn = false
+    }
+}
+function toggleGuide() {
+    if (guideOn === false){
+        roamHUDRight.style.display = "block"
+        guideOn = true
+    } else {
+        roamHUDRight.style.display = "none"
+        guideOn = false
     }
 }
 function displayView() {

@@ -1,2 +1,0 @@
-{"type":"text","text":"","style":{"modelType":"model1","shininess":"88","color":"#861919"},"fileUrl":[],"_id":"quKVXM7mADZZ1XEz"}
-{"type":"text","text":"no","style":{"modelType":"model2","shininess":"38","color":"#27be45"},"userID":"quantumdrill","fileUrl":[],"_id":"touRtan4YVG8O7sf"}

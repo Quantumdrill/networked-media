@@ -646,6 +646,30 @@ input[type=submit] {
     font-size: 30px;
 }
 
+#roamHUDLeft {
+    z-index: 1;
+    color:#ffffff;
+    text-shadow: 2px 2px 2px black;
+    position: absolute;
+    left: 10vw;
+    bottom: 20vh;
+    font-size: 30px;
+    transform: perspective(20cm) rotateX(-15deg) rotateY(20deg);
+}
+
+#roamHUDRight {
+    display: none;
+    z-index: 1;
+    color:#ffffff;
+    text-shadow: 2px 2px 2px black;
+    position: absolute;
+    line-height: 150%;
+    right: 10vw;
+    bottom: 20vh;
+    font-size: 40px;
+    transform: perspective(20cm) rotateX(-5deg) rotateY(-20deg);
+}
+
 #roamViewContainer {
     position: fixed;
     width: 100vw;
