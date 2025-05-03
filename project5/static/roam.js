@@ -81,7 +81,11 @@ document.addEventListener("keyup",async e=>{
             toggleView()
         }
     } else if (nearestObj&&e.key.toLowerCase()==="q"&&menuOn===false){
-        await fetch ("/toCollection?collected="+nearestObj._id,{method:"POST"})
+        if (page.type==="roam"){
+            roamHUDCollected.style.display = "block"
+            setTimeout(()=>{roamHUDCollected.style.display = "none"},3000)
+            await fetch ("/toCollection?collected="+nearestObj._id,{method:"POST"})
+        }
     } else if (e.key==="Shift"){
         camctrl.movementSpeed = movementSpeed
     } else if (e.key.toLowerCase()==="g"&&menuOn===false){
@@ -240,7 +244,7 @@ const matBl = new THREE.MeshStandardMaterial({color:0x000000})
 matBl.roughness = 0.2
 const matPaper = new THREE.MeshStandardMaterial({color:0xeeeeee})
 matPaper.roughness = 0.9
-const matEmi = new THREE.MeshStandardMaterial({color:0xade5f7,emissive:0xade5f7,emissiveIntensity:100})
+const matEmi = new THREE.MeshStandardMaterial({color:0xade5f7,emissive:0xade5f7,emissiveIntensity:2})
 
 //data processing and object scattering
 let dataForRender = []
@@ -472,9 +476,17 @@ const tick = ()=>{
             if (nearestObj.type==="audio"){
                 roamHUDCenter.textContent = ""
             } else if (nearestObj.type==="link"){
-                roamHUDCenter.textContent = "[Q]Add to Collection  [E]Go to: "+nearestObj.text
+                if (page.type==="roam"){
+                    roamHUDCenter.textContent = "[Q]Add to Collection  [E]Go to: "+nearestObj.text
+                } else {
+                    roamHUDCenter.textContent = "[E]Go to: "+nearestObj.text
+                }
             } else {
-                roamHUDCenter.textContent = "[Q]Add to Collection  [E]View"
+                if (page.type==="roam"){
+                    roamHUDCenter.textContent = "[Q]Add to Collection  [E]View"
+                } else {
+                    roamHUDCenter.textContent = "[E]View"
+                }
             }
             roamHUDCenter.style.display = "block"
             break

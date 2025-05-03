@@ -90,6 +90,7 @@ colorPicker.addEventListener("change",e=>{
     updateMat()
 })
 
+//file size check
 upFileUpload.addEventListener("change",e=>{
     Object.keys(upFileUpload.files).forEach((key)=>{
         const fileSize = upFileUpload.files[key] ? upFileUpload.files[key].size : 0

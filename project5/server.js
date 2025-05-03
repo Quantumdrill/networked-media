@@ -67,12 +67,13 @@ app.get("/collection", checkLoginStatus, (req,res)=>{
 
 app.post("/toCollection", (req,res)=>{
     udb.findOne({userID:userData.ID},(err,back)=>{
-
-        back.collection.push(req.query.collected)
-        userData.collection.push(req.query.collected)
-        udb.update({userID:userData.ID},back,{},(err,back)=>{
-            res.redirect("/")
-        })
+        if (back.collection.includes(req.query.collected)===false){
+            back.collection.push(req.query.collected)
+            userData.collection.push(req.query.collected)
+            udb.update({userID:userData.ID},back,{},(err,back)=>{
+                res.redirect("/")
+            })
+        }
     })
     
 })

@@ -670,6 +670,16 @@ input[type=submit] {
     transform: perspective(20cm) rotateX(-5deg) rotateY(-20deg);
 }
 
+#roamHUDCollected {
+    display: none;
+    z-index: 1;
+    color:#ffffff;
+    text-shadow: 2px 2px 2px black;
+    position: absolute;
+    top: 15vh;
+    font-size: 30px;
+}
+
 #roamViewContainer {
     position: fixed;
     width: 100vw;
